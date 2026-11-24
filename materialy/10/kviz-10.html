@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kdo má hluboko do kapsy?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Hanken+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: hravý kvíz pro žáky, ve stejném světě jako kalendář Vánoční koleda
+   IDEA: kartička z adventního okna na noční zasněžené ulici
+   PICTURE: velká bílá karta s otázkou, zlaté světlo u správné odpovědi
+   COLOUR and TYPE: noční modř, světlo lampy, sníh; Playfair Display + Hanken Grotesk
+   LAYOUT: jedna otázka na obrazovku, průběh nahoře, výsledek na konci */
+:root{color-scheme:dark;--ink:#f4efe6;--mute:#b9bfd8;--glow:#ffd27a;--card:#fff;--cink:#1d1d2b;--ok:#1f8a5a;--bad:#c22f42}
+*{box-sizing:border-box;min-width:0}
+html{background:#1a2245}
+body{margin:0;min-height:100vh;color:var(--ink);font:16px/1.55 "Hanken Grotesk",system-ui,sans-serif;background:linear-gradient(#0f1429,#1a2245 700px,#232b52)}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.45;background-image:radial-gradient(circle,#fff 0 1.4px,transparent 2px),radial-gradient(circle,#fff 0 1px,transparent 1.6px);background-size:120px 140px,90px 110px;background-position:0 0,40px 60px;animation:snow 14s linear infinite}
+@keyframes snow{to{background-position:20px 140px,10px 170px}}
+main{position:relative;max-width:680px;margin:0 auto;padding:clamp(20px,5vw,48px) 16px 48px}
+h1,h2{font-family:"Playfair Display",Georgia,serif;line-height:1.08;margin:0;text-wrap:balance}
+h1{font-size:clamp(32px,6vw,46px)}
+.eyebrow{color:var(--glow);font-weight:700;margin-bottom:6px}
+.lead{color:var(--mute);margin:10px 0 22px}
+.bar{height:8px;background:#ffffff1f;border-radius:99px;overflow:hidden;margin-bottom:8px}
+.bar i{display:block;height:100%;background:var(--glow);border-radius:99px;transition:width .3s}
+.count{color:var(--mute);font-size:14px;margin-bottom:14px}
+.card{background:var(--card);color:var(--cink);border-radius:22px;padding:clamp(20px,4vw,30px);box-shadow:0 20px 40px #0006}
+.card h2{font-size:clamp(22px,4vw,28px);margin-bottom:16px}
+figure{margin:0 0 16px;border-radius:14px;overflow:hidden;background:#eef0f6}
+figure img{display:block;width:100%;max-height:320px;object-fit:cover}
+.opts{display:grid;gap:10px}
+.opt{font:600 17px "Hanken Grotesk",sans-serif;text-align:left;min-height:52px;padding:12px 16px;border-radius:14px;border:2px solid #d8dbe6;background:#fff;color:var(--cink);cursor:pointer}
+.opt:hover:not(:disabled){border-color:#9aa3c4}
+.opt:disabled{cursor:default}
+.opt.sel{border-color:#2b84c9;background:#e8f1fb}
+.opt.ok{border-color:var(--ok);background:#e5f5ed}
+.opt.bad{border-color:var(--bad);background:#fdebee}
+.fb{display:none;margin-top:14px;padding:12px 14px;border-radius:12px;background:#f5f6fa}
+.fb.on{display:block}
+.fb b{display:block}
+.next{margin-top:16px;display:none}
+.next.on{display:inline-flex}
+.btn{font:700 16px "Hanken Grotesk",sans-serif;border:0;border-radius:99px;min-height:48px;padding:0 24px;display:inline-flex;align-items:center;cursor:pointer;background:var(--cink);color:#fff}
+.btn.gold{background:var(--glow);color:#2a1a06}
+button:focus-visible{outline:3px solid var(--glow);outline-offset:3px}
+.score{font:800 clamp(44px,10vw,64px)/1 "Playfair Display",serif;margin:8px 0 6px}
+@media(prefers-reduced-motion:reduce){body::before{animation:none}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">10. prosince · Vánoční koleda</div>
+  <h1>Kdo má hluboko do kapsy?</h1>
+  <p class="lead">Scrooge by si pro korunu nechal koleno vrtat. Čeština má o penězích spoustu rčení. Kolik jich znáš ty?</p>
+  <div class="bar"><i id="bar"></i></div>
+  <div class="count" id="count"></div>
+  <div class="card" id="card"></div>
+</main>
+<script>
+{
+const Q=[
+{q:'Co platí o lidech na fotce?',img:'kviz-10-jachta.jpg',alt:'Dvojice slaví se šampaňským na jachtě',o:['žijí na vysoké noze','mají hluboko do kapsy','jsou na mizině'],c:0,e:'Kdo žije na vysoké noze, žije v přepychu a hodně utrácí.'},
+{q:'Co platí o muži na fotce?',img:'kviz-10-ulice.jpg',alt:'Muž sedí na chodníku před výlohou',o:['má hluboko do kapsy','topí se v penězích','žije na vysoké noze'],c:0,e:'Mít hluboko do kapsy znamená mít málo peněz, být chudý.'},
+{q:'Scrooge by si pro korunu nechal koleno vrtat. Co to o něm říká?',o:['je velmi lakomý','je velmi chudý','rád utrácí'],c:0,e:'Kdo by si pro korunu nechal koleno vrtat, udělá pro peníze cokoli. Je to velký lakomec.'},
+{q:'Scrooge sedí na penězích. Co to znamená?',o:['má peníze, ale nechce je utrácet','rád počítá mince','nemá kam si sednout'],c:0,e:'Kdo sedí na penězích, má jich dost, ale nechce se o ně podělit ani je utratit.'},
+{q:'Co znamená, když má někdo ježka v kapse?',o:['nerad platí','ztratil peněženku','má kapsu plnou drobných'],c:0,e:'Do kapsy s ježkem se sahá nerado. Říká se to o lakomci, který nerad vytahuje peníze.'},
+{q:'Bob Cratchit vydělává u Scrooge jen pár šilinků týdně. Které rčení na něj sedí?',o:['chudý jako kostelní myš','topí se v penězích','žije na vysoké noze'],c:0,e:'Chudý jako kostelní myš znamená velmi chudý. V kostele myš nic k jídlu nenajde.'},
+{q:'Co znamená žít z ruky do úst?',o:['hned utratit všechno, co si vydělám','jíst bez příboru','šetřit na horší časy'],c:0,e:'Kdo žije z ruky do úst, nemá žádné úspory. Co vydělá, to hned spotřebuje.'},
+{q:'Kdo vyhazuje peníze oknem?',o:['ten, kdo zbytečně utrácí','ten, kdo nemá peněženku','ten, kdo rozdává lidem'],c:0,e:'Vyhazovat peníze oknem znamená utrácet za zbytečnosti.'},
+{q:'Co znamená topit se v penězích?',o:['být velmi bohatý','mít mokrou peněženku','přijít o všechno'],c:0,e:'Kdo se topí v penězích, ten jich má tolik, že neví, co s nimi.'},
+{q:'Kdo je na mizině?',o:['ten, kdo nemá vůbec žádné peníze','ten, kdo bydlí na kraji města','ten, kdo vyhrál v loterii'],c:0,e:'Být na mizině znamená přijít o všechny peníze a nemít z čeho žít.'},
+{q:'Kdo otočí každou korunu dvakrát?',o:['ten, kdo hodně šetří','ten, kdo sbírá mince','ten, kdo neumí počítat'],c:0,e:'Kdo otočí každou korunu dvakrát, ten si dobře rozmyslí každý nákup a utrácí opatrně.'},
+{q:'Co znamená utahovat si opasek?',o:['šetřit, protože je málo peněz','zhubnout','obléknout se slavnostně'],c:0,e:'Utahovat si opasek znamená omezit výdaje, když je peněz málo.'},
+{q:'Lakomého člověka, jako je Scrooge, můžeme pojmenovat různě. Která slova se pro něj hodí? Označ všechna správná.',multi:true,o:['skrblík','držgrešle','hamoun','lakomec','dobrák','dobrodinec','mecenáš','rozhazovač','škudlit'],c:[0,1,2,3],e:'Skrblík, držgrešle, hamoun i lakomec označují člověka, který nerad utrácí. Dobrák, dobrodinec a mecenáš jsou naopak lidé, kteří rádi pomáhají a dávají, mecenáš třeba podporuje umělce nebo vědce. Rozhazovač peníze nešetří, ale utrácí je plnými hrstmi. A škudlit je sloveso, tedy to, co lakomec dělá, ne označení pro člověka.'},
+{q:'Po Dickensově lakomci dostala jméno jedna slavná kreslená postavička. Která?',o:['strýček Skrblík','Grinch','Shrek'],c:0,e:'Strýček Skrblík se v angličtině jmenuje Scrooge McDuck. Kreslíř Carl Barks ho tak v roce 1947 pojmenoval právě po Ebenezeru Scroogeovi. Grinch sice Vánoce taky nesnáší, ale jeho jméno se Scroogeem nesouvisí.'},
+{q:'Které přísloví by si měl Scrooge zapamatovat?',o:['Za peníze si štěstí nekoupíš.','Čas jsou peníze.','Bez práce nejsou koláče.'],c:0,e:'Myslíš, že Scrooge jednou pochopí, že za peníze si štěstí nekoupí? Co by ho k tomu mohlo přivést? Jak to s ním dopadne, uvidíš v dalších dnech kalendáře.'}
+].map(x=>{const order=x.o.map((t,i)=>({t,ok:Array.isArray(x.c)?x.c.includes(i):i===x.c})).sort(()=>Math.random()-.5);return {...x,order}});
+const $=id=>document.getElementById(id);
+let i=0,score=0;
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function show(){
+  $('bar').style.width=(i/Q.length*100)+'%';
+  if(i>=Q.length){return end()}
+  $('count').textContent=`Otázka ${i+1} z ${Q.length}`;
+  const x=Q[i];
+  $('card').innerHTML=`${x.img?`<figure><img src="${x.img}" alt="${esc(x.alt)}" id="pic"></figure>`:''}<h2>${esc(x.q)}</h2>
+  <div class="opts">${x.order.map((o,k)=>`<button class="opt" data-k="${k}">${esc(o.t)}</button>`).join('')}</div>
+  ${x.multi?'<button class="btn gold" id="check" style="margin-top:14px">Zkontrolovat</button>':''}<div class="fb" id="fb"></div><button class="btn next" id="next">${i===Q.length-1?'Zobrazit výsledek':'Další otázka'}</button>`;
+  const pic=$('pic');if(pic)pic.addEventListener('error',()=>pic.parentElement.remove());
+}
+function end(){
+  $('count').textContent='Hotovo!';
+  const msg=score===Q.length?'Výborně, rčení o penězích máš v malíčku!':score>=Q.length-2?'Skvělá práce, skoro všechno správně.':'Dobrý začátek. Zkus to ještě jednou.';
+  $('card').innerHTML=`<h2>Tvůj výsledek</h2><div class="score">${score} / ${Q.length}</div><p>${msg}</p><p style="background:#fff6dc;border-radius:12px;padding:12px 14px"><b>K zamyšlení:</b> Znáš i jiná přísloví a rčení o penězích? Zkus jich vymyslet co nejvíc a vysvětli, co znamenají.</p><button class="btn gold" id="again">Hrát znovu</button>`;
+}
+$('card').addEventListener('click',e=>{
+  const b=e.target.closest('.opt');
+  if(b&&!b.disabled&&Q[i].multi){b.classList.toggle('sel');b.setAttribute('aria-pressed',b.classList.contains('sel'));return}
+  if(e.target.closest('#check')){
+    const x=Q[i];let allok=true;
+    document.querySelectorAll('.opt').forEach((el,k)=>{el.disabled=true;const o=x.order[k],sel=el.classList.contains('sel');el.classList.remove('sel');
+      if(o.ok)el.classList.add('ok');else if(sel)el.classList.add('bad');if(o.ok!==sel)allok=false});
+    if(allok)score++;$('check').remove();
+    $('fb').innerHTML=`<b>${allok?'Správně!':'Skoro. Podívej se, která slova jsou zelená.'}</b>${esc(x.e)}`;$('fb').classList.add('on');
+    $('next').classList.add('on');$('next').focus();return;
+  }
+  if(b&&!b.disabled){
+    const x=Q[i],o=x.order[+b.dataset.k];
+    document.querySelectorAll('.opt').forEach((el,k)=>{el.disabled=true;if(x.order[k].ok)el.classList.add('ok')});
+    if(o.ok)score++;else b.classList.add('bad');
+    $('fb').innerHTML=`<b>${o.ok?'Správně!':'Tentokrát ne.'}</b>${esc(x.e)}`;$('fb').classList.add('on');
+    $('next').classList.add('on');$('next').focus();return;
+  }
+  if(e.target.closest('#next')){i++;show();return}
+  if(e.target.closest('#again')){i=0;score=0;Q.forEach(x=>x.order.sort(()=>Math.random()-.5));show()}
+});
+show();
+}
+</script>
+</body>
+</html>
