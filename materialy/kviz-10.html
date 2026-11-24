@@ -40,8 +40,8 @@ figure img{display:block;width:100%;max-height:320px;object-fit:cover}
 .fb{display:none;margin-top:14px;padding:12px 14px;border-radius:12px;background:#f5f6fa}
 .fb.on{display:block}
 .fb b{display:block}
-.next{margin-top:16px;display:none}
-.next.on{display:inline-flex}
+.btn.next{margin-top:16px;display:none}
+.btn.next.on{display:inline-flex}
 .btn{font:700 16px "Hanken Grotesk",sans-serif;border:0;border-radius:99px;min-height:48px;padding:0 24px;display:inline-flex;align-items:center;cursor:pointer;background:var(--cink);color:#fff}
 .btn.gold{background:var(--glow);color:#2a1a06}
 button:focus-visible{outline:3px solid var(--glow);outline-offset:3px}
@@ -61,8 +61,8 @@ button:focus-visible{outline:3px solid var(--glow);outline-offset:3px}
 <script>
 {
 const Q=[
-{q:'Co platí o lidech na fotce?',img:'kviz-10-jachta.jpg',alt:'Dvojice slaví se šampaňským na jachtě',o:['žijí na vysoké noze','mají hluboko do kapsy','jsou na mizině'],c:0,e:'Kdo žije na vysoké noze, žije v přepychu a hodně utrácí.'},
-{q:'Co platí o muži na fotce?',img:'kviz-10-ulice.jpg',alt:'Muž sedí na chodníku před výlohou',o:['má hluboko do kapsy','topí se v penězích','žije na vysoké noze'],c:0,e:'Mít hluboko do kapsy znamená mít málo peněz, být chudý.'},
+{q:'Co platí o lidech na fotce?',img:'kviz-10-jachta.png',alt:'Dvojice slaví se šampaňským na jachtě',o:['žijí na vysoké noze','mají hluboko do kapsy','jsou na mizině'],c:0,e:'Kdo žije na vysoké noze, žije v přepychu a hodně utrácí.'},
+{q:'Co platí o muži na fotce?',img:'kviz-10-ulice.png',alt:'Muž sedí na chodníku před výlohou',o:['má hluboko do kapsy','topí se v penězích','žije na vysoké noze'],c:0,e:'Mít hluboko do kapsy znamená mít málo peněz, být chudý.'},
 {q:'Scrooge by si pro korunu nechal koleno vrtat. Co to o něm říká?',o:['je velmi lakomý','je velmi chudý','rád utrácí'],c:0,e:'Kdo by si pro korunu nechal koleno vrtat, udělá pro peníze cokoli. Je to velký lakomec.'},
 {q:'Scrooge sedí na penězích. Co to znamená?',o:['má peníze, ale nechce je utrácet','rád počítá mince','nemá kam si sednout'],c:0,e:'Kdo sedí na penězích, má jich dost, ale nechce se o ně podělit ani je utratit.'},
 {q:'Co znamená, když má někdo ježka v kapse?',o:['nerad platí','ztratil peněženku','má kapsu plnou drobných'],c:0,e:'Do kapsy s ježkem se sahá nerado. Říká se to o lakomci, který nerad vytahuje peníze.'},
@@ -88,7 +88,7 @@ function show(){
   $('card').innerHTML=`${x.img?`<figure><img src="${x.img}" alt="${esc(x.alt)}" id="pic"></figure>`:''}<h2>${esc(x.q)}</h2>
   <div class="opts">${x.order.map((o,k)=>`<button class="opt" data-k="${k}">${esc(o.t)}</button>`).join('')}</div>
   ${x.multi?'<button class="btn gold" id="check" style="margin-top:14px">Zkontrolovat</button>':''}<div class="fb" id="fb"></div><button class="btn next" id="next">${i===Q.length-1?'Zobrazit výsledek':'Další otázka'}</button>`;
-  const pic=$('pic');if(pic)pic.addEventListener('error',()=>pic.parentElement.remove());
+  const pic=$('pic');if(pic){const base=x.img.replace(/\.(jpe?g|png)$/i,''),alts=['.jpg','.jpeg','.png','.JPG','.JPEG','.PNG'].map(e=>base+e);let k=0;pic.addEventListener('error',()=>{k++;if(k<alts.length)pic.src=alts[k];else pic.parentElement.remove()})}
 }
 function end(){
   $('count').textContent='Hotovo!';
