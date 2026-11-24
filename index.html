@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adventní kalendář: Vánoční koleda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Hanken+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: pohádkový, vlídný, pro žáky; přehledný i pro učitelky
+   IDEA: zasněžená viktoriánská ulice z Vánoční koledy, okna domů jsou okénka kalendáře
+   PICTURE: tři domy = tři duchové (minulé, přítomné, budoucí Vánoce), každý s osmi okny; rozsvícené okno = odemčený úkol
+   COLOUR and TYPE: noční inkoustová modř, teplé světlo plynových lamp, sníh, cesmínově červený akcent; Playfair Display + Hanken Grotesk
+   LAYOUT: titulek a tlačítko o autorkách nahoře, ulice přes celou šíři (na mobilu posuvná po domech), pod ní informace pro učitele */
+:root{color-scheme:dark;--bg:#141a33;--bg2:#1f2747;--ink:#f4efe6;--mute:#b9bfd8;--glow:#ffd27a;--glow2:#f0a23e;--holly:#c22f42;--snow:#f7f6f2;--card:#ffffff;--cink:#1d1d2b;
+--L:#8f5bd6;--S:#2b84c9;--J:#d4572c}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+html{background:#232b52}
+body{background:linear-gradient(#0f1429,#1a2245 900px,#232b52);color:var(--ink);font:16px/1.55 "Hanken Grotesk",system-ui,sans-serif;overflow-x:clip;min-height:100vh}
+body::before{content:"";position:fixed;inset:-100px 0 0;pointer-events:none;z-index:0;opacity:.55;
+background-image:radial-gradient(circle,#fff 0 1.4px,transparent 2px),radial-gradient(circle,#fff 0 1px,transparent 1.6px),radial-gradient(circle,#ffffffb0 0 2px,transparent 2.6px);
+background-size:120px 140px,90px 110px,200px 230px;background-position:0 0,40px 60px,80px 20px;animation:snow 14s linear infinite}
+@keyframes snow{to{background-position:20px 140px,10px 170px,110px 250px}}
+main{position:relative;z-index:1}
+.band{padding:clamp(22px,4vw,52px) max(5vw,16px);max-width:1200px;margin:0 auto}
+h1,h2,h3{font-family:"Playfair Display",Georgia,serif;line-height:1.05;text-wrap:balance;margin:0}
+h1{font-size:clamp(34px,5.2vw,52px);font-weight:800}
+h1 em{font-style:normal;display:block;font-size:.5em;font-family:"Hanken Grotesk",sans-serif;font-weight:700;color:var(--glow);margin-bottom:8px;letter-spacing:.01em}
+.top{display:flex;flex-wrap:wrap;gap:18px 28px;align-items:flex-end;justify-content:space-between}
+.lead{color:var(--mute);max-width:58ch;margin:12px 0 0}
+.demo{display:block;margin-top:8px;font-size:13px;color:var(--glow)}
+.btn{font:700 15px "Hanken Grotesk",sans-serif;border:0;cursor:pointer;min-height:44px;border-radius:999px;padding:0 20px;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn.gold{background:var(--glow);color:#2a1a06}
+.btn.ghost{background:#ffffff14;color:var(--ink);box-shadow:inset 0 0 0 1.5px #ffffff40}
+.btn.dark{background:var(--cink);color:#fff}
+.btn.light{background:#eef0f6;color:var(--cink)}
+button:focus-visible,a:focus-visible{outline:3px solid var(--glow);outline-offset:3px}
+.notice{margin-top:20px;padding:12px 16px;border-radius:14px;background:#ffffff12;color:var(--ink);font-weight:600;display:none}
+.notice.on{display:block}
+.notice.prev{background:#c22f4233;box-shadow:inset 0 0 0 1.5px #c22f42}
+/* street */
+.street{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,2vw,26px);margin-top:26px;align-items:end}
+figure{margin:0}
+.house{position:relative;aspect-ratio:300/440;container-type:inline-size}
+.house>svg{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 10px 18px #0007)}
+figcaption{text-align:center;color:var(--mute);font-size:14px;margin-top:6px}
+figcaption b{color:var(--ink)}
+.win{position:absolute;transform:translate(-50%,-50%);width:22%;height:10.5%;border:1.1cqw solid #e8dcc2;border-radius:45% 45% 3px 3px/30% 30% 3px 3px;padding:0;cursor:pointer;
+background:linear-gradient(90deg,transparent calc(50% - .5cqw),#e8dcc2 calc(50% - .5cqw) calc(50% + .5cqw),transparent 0),linear-gradient(transparent calc(55% - .5cqw),#e8dcc2 calc(55% - .5cqw) calc(55% + .5cqw),transparent 0),#1a2342;
+font:800 6.4cqw/1 "Playfair Display",Georgia,serif;color:#aab4d8;display:grid;place-items:center;transition:transform .15s}
+.win span{width:10.5cqw;height:10.5cqw;border-radius:50%;display:grid;place-items:center;background:#2b3558;color:#eef1ff;font:800 6.4cqw/1 "Hanken Grotesk",system-ui,sans-serif;box-shadow:0 0 0 .6cqw #e8dcc2}
+.win:hover{transform:translate(-50%,-50%) scale(1.06)}
+.win.lit{background:linear-gradient(90deg,transparent calc(50% - .5cqw),#e8dcc2 calc(50% - .5cqw) calc(50% + .5cqw),transparent 0),linear-gradient(transparent calc(55% - .5cqw),#e8dcc2 calc(55% - .5cqw) calc(55% + .5cqw),transparent 0),radial-gradient(circle at 50% 45%,#fff1c2,var(--glow) 45%,var(--glow2));color:#3a2208;box-shadow:0 0 4cqw #ffd27a88}
+.win.lit span{background:#fffaf0;color:#2a1a06}
+.win.done{filter:saturate(.75) brightness(.92)}
+.win.today{animation:glow 1.8s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 0 1.3cqw #ffd27a66,0 0 8cqw #ffd27a}}
+.ck{position:absolute;right:-2.6cqw;bottom:-2.6cqw;width:6cqw;height:6cqw;border-radius:50%;background:#fff;color:#1f8a5a;font:800 4cqw/6cqw "Hanken Grotesk",sans-serif;font-style:normal;text-align:center;box-shadow:0 2px 4px #0005;z-index:2}
+.win.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translate(calc(-50% - 4px),-50%)}75%{transform:translate(calc(-50% + 4px),-50%)}}
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:18px;color:var(--mute);font-size:14px}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.sw{width:18px;height:14px;border-radius:5px 5px 2px 2px;border:2px solid #e8dcc2}
+/* info */
+.info{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:8px}
+.info div{background:#ffffff0f;border-radius:18px;padding:18px 20px}
+.info h3{font-size:22px;margin-bottom:6px}
+.info p{margin:0;color:var(--mute)}
+footer{color:var(--mute);font-size:13px;text-align:center;padding:10px 16px 40px}
+footer a{color:var(--mute)}
+/* modal */
+.ov{position:fixed;inset:0;background:#070a18d9;display:none;align-items:center;justify-content:center;padding:16px;z-index:9}
+.ov.on{display:flex}
+.card{background:var(--card);color:var(--cink);border-radius:22px;max-width:640px;width:100%;max-height:92vh;overflow:auto;padding:clamp(22px,4vw,34px);position:relative}
+.card h2{font-size:clamp(28px,4.4vw,36px);margin:10px 0 12px;padding-right:40px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:#eef0f6;white-space:nowrap}
+.tag.t{color:#fff}
+.x{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:0;background:#eef0f6;font-size:24px;cursor:pointer;color:var(--cink)}
+.task{font-size:17px;margin:0}
+.acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.by{margin-top:22px;padding-top:14px;border-top:1px solid #e4e6ee;font-size:15px;color:#5b5f73}
+.lnk{background:none;border:0;padding:0;font:inherit;color:var(--cink);font-weight:700;text-decoration:underline;cursor:pointer;min-height:auto}
+.authors{display:grid;gap:14px;margin-top:16px}
+.au{display:grid;grid-template-columns:64px minmax(0,1fr);gap:14px;padding:16px;border-radius:16px;background:#f5f6fa}
+.av{position:relative;overflow:hidden;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font:800 22px "Playfair Display",serif;color:#fff}
+.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.au h3{font-size:22px}
+.au p{margin:4px 0 10px;color:#5b5f73;font-size:15px}
+.au .ph{font-style:italic}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;text-decoration:none;font:700 14px "Hanken Grotesk",sans-serif;border:0;border-radius:999px;min-height:40px;padding:0 14px;background:#fff;color:var(--cink);box-shadow:inset 0 0 0 1.5px #d8dbe6;cursor:pointer}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--snow);color:var(--cink);font-weight:700;padding:12px 18px;border-radius:12px;opacity:0;transition:.25s;pointer-events:none;max-width:90vw;text-align:center;z-index:20}
+.toast.show{opacity:1;transform:translateX(-50%)}
+@media(max-width:760px){
+ .street{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-inline:calc(-1 * max(5vw,16px));padding:0 max(5vw,16px) 8px;scrollbar-width:none}
+ .street>figure{flex:0 0 84%;scroll-snap-align:center}
+ .info{grid-template-columns:minmax(0,1fr)}
+ .swipe{display:block!important}
+}
+.swipe{display:none;color:var(--mute);font-size:14px;margin-top:10px}
+@media(prefers-reduced-motion:reduce){body::before,.win.today,.win.shake{animation:none}.win:hover{transform:translate(-50%,-50%)}}
+</style>
+</head>
+<body>
+<main>
+<header class="band">
+  <div class="top">
+    <div>
+      <h1><em>Adventní kalendář z češtiny</em>Vánoční koleda</h1>
+      <p class="lead">Ebenezer Scrooge je bohatý, ale lakomý a nevrlý obchodník. Na Štědrý večer ho navštíví tři duchové a ukážou mu jeho minulé, přítomné i budoucí Vánoce. Příběh Charlese Dickense vyšel v roce 1843 a dodnes patří k nejznámějším vánočním knihám.</p>
+      <p class="lead">Od 1. do 24. prosince se každý den rozsvítí jedno okno. Klikni na něj a objevuj s námi příběh Ebenezera Scrooge.</p>
+      <span class="demo">Prototyp – úkoly a odkazy na materiály jsou zatím ukázkové.</span>
+    </div>
+    <button class="btn ghost" id="openAuthors">Kdo stojí za kalendářem</button>
+  </div>
+  <div class="notice" id="notice"></div>
+  <div class="street" id="street"></div>
+  <p class="swipe">Posuň do strany pro další dům.</p>
+  <div class="legend">
+    <span><i class="sw" style="background:#1a2342"></i>Zatím zhasnuto</span>
+    <span><i class="sw" style="background:var(--glow)"></i>Rozsvíceno, můžeš otevřít</span>
+    <span><i class="sw" style="background:var(--glow);box-shadow:0 0 10px var(--glow)"></i>Dnešní okno</span>
+  </div>
+</header>
+
+</main>
+<footer>Společný projekt češtinářek · advent 2026 · <a href="#nahled" id="prevLink">Náhled pro autorky (jen v prototypu)</a></footer>
+
+<div class="ov" id="ov" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="card" id="card"></div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+{
+const YEAR=2026;
+const AREA={L:'Literatura',S:'Sloh',J:'Jazyk'};
+const AUTHORS=[
+ {n:'Tereza Kábelová',p:'https://ucitelskyspajz.s27.cdn-upgates.com/t/t6accf8a25d3d8-tereza-kabelova.jpeg',i:'TK',c:'#8f5bd6',b:'Učí češtinu a angličtinu na gymnáziu, je lektorka a autorka projektu Tady učím já. Ve výuce propojuje kritické myšlení, práci s textem, aktivizující metody a technologie.',links:[['Instagram Tady učím já','https://www.instagram.com/tadyucimja/'],['Učitelnice','https://www.ucitelnice.cz/tadyucimja?page=1&orderBy=published_at']]},
+ {n:'Nela Merva',p:'https://ucitelskyspajz.s27.cdn-upgates.com/g/g6addf34ba1529-nela-merva.jpg',i:'NM',c:'#2b84c9',b:'Učí český jazyk a literaturu na Gymnáziu Ladislava Jaroše v Holešově a je doktorandkou na Pedagogické fakultě Masarykovy univerzity. Ve výuce staví na tvořivosti, aktivitě žáků a vzájemném respektu. V roce 2026 získala od fakulty ocenění Pedagog roku.',links:[['Instagram Nela Merva','https://www.instagram.com/nela_merva/'],['Učitelnice','https://www.ucitelnice.cz/ucimjanelamerva?page=1&orderBy=published_at']]},
+ {n:'Michaela Musiolková',p:'https://ucitelskyspajz.s27.cdn-upgates.com/t/t6af19081d6706-michaela-musiolkova.png',i:'MM',c:'#c22f42',b:'Učí češtinu a hudební výchovu na ZŠ Dělnická v Karviné už skoro 20 let. Vede workshopy o třídním kolektivu, digitálních dovednostech, diferenciaci a práci s knihou.',links:[['Instagram Učitelský deníček','https://www.instagram.com/ucitelsky_denicek/'],['Učitelnice','https://www.ucitelnice.cz/michaela-musiolkova-ucitelskyd?page=1&orderBy=published_at']]},
+ {n:'Žaneta Stiborská',p:'https://ucitelskyspajz.s27.cdn-upgates.com/5/568f20330c4520-snimek-obrazovky-2025-06-14-v-9-37-39.png',i:'ŽS',c:'#3d9e98',b:'Učí češtinu cizince a žáky s odlišným mateřským jazykem a zaměřuje se hlavně na čtenářskou gramotnost a kritické myšlení. Založila projekt Učitelský špajz, tvoří didaktické a metodické karty a vede workshopy o aktivizačních metodách a čtenářské gramotnosti.',links:[['Instagram Učitelský špajz','https://www.instagram.com/ucitelsky_spajz/'],['Web','https://www.ucitelskyspajz.cz']]}
+];
+const SIGNS=['Scrooge a Marley','Duchové Vánoc','Scroogeova proměna'];
+const HOUSE=['#6b3b48','#3d5168','#3a3946'];
+// r: pdf = pracovní list, app = online aplikace; u: odkaz (zatím prázdný)
+const T=[
+{a:'J',m:5,r:'app',t:'Kdo je kdo?',q:'Přiřaď jména postav k jejich popisům: Ebenezer Scrooge, Jacob Marley, Bob Cratchit, Malý Tim a synovec Fred.'},
+{a:'L',m:15,r:'pdf',t:'Marleyho řetěz',q:'Marley nosí po smrti řetěz, který si za života sám ukoval. Nakresli na pracovní list článek takového řetězu a napiš do něj, co by na něm podle tebe viselo.'},
+{a:'J',m:5,r:'pdf',t:'Lakomý, skoupý, držgrešle',q:'Najdi co nejvíc slov, kterými se dá říct, že je někdo lakomý. Která z nich jsou spisovná a která hovorová?'},
+{a:'S',m:15,r:'pdf',t:'Kdo je Ebenezer Scrooge?',q:'Napiš charakteristiku Scrooge, jak ho poznáváme na začátku příběhu. Nezapomeň na vnější i vnitřní vlastnosti.'},
+{a:'L',m:5,r:'app',t:'Štědrý večer v kanceláři',q:'Krátký kvíz k první kapitole. Kdo přišel Scrooge pozvat na večeři a jak mu Scrooge odpověděl?'},
+{a:'J',m:5,r:'pdf',t:'„Nesmysl!“ řekl Scrooge',q:'Přepiš rozhovor Scrooge se synovcem a doplň správně interpunkci v přímé řeči.'},
+{a:'S',m:15,r:'pdf',t:'Dopis malému Ebenezerovi',q:'Duch minulých Vánoc ukáže Scroogeovi, jak o Vánocích sedí jako chlapec sám ve škole. Napiš malému Ebenezerovi dopis.'},
+{a:'L',m:15,r:'pdf',t:'Fezziwig, nebo Scrooge?',q:'Porovnej starého Fezziwiga a Scrooge jako zaměstnavatele. V čem se liší a v čem jsou si podobní? Vyplň Vennův diagram.'},
+{a:'J',m:5,r:'app',t:'Slovní druhy pod stromečkem',q:'Roztřiď slova z vánoční ukázky podle slovních druhů.'},
+{a:'L',m:15,r:'pdf',t:'Vánoce u Cratchitových',q:'Přečti si ukázku o štědrovečerní večeři u Cratchitových a odpověz na otázky. Co dělá jejich Vánoce šťastnými, i když toho mají málo?'},
+{a:'S',m:15,r:'pdf',t:'Prostřený stůl',q:'Popiš sváteční stůl u Cratchitových, nebo jakýkoli vymyšlený, tak, aby si ho čtenář dokázal představit.'},
+{a:'J',m:5,r:'pdf',t:'Studenější než led',q:'Dickens popisuje Scrooge pomocí přirovnání. Vymysli pět vlastních přirovnání, třeba ke slovům chladný, tvrdý nebo šťastný.'},
+{a:'L',m:15,r:'app',t:'Časová osa',q:'Seřaď hlavní události příběhu ve správném pořadí.'},
+{a:'S',m:15,r:'pdf',t:'Reportáž z vánočního Londýna',q:'Jsi reportér v Londýně na Štědrý den roku 1843. Napiš krátkou reportáž o tom, co vidíš a slyšíš v ulicích.'},
+{a:'J',m:5,r:'pdf',t:'Srdce z kamene',q:'Vysvětli význam ustálených spojení, například mít srdce z kamene nebo otočit o sto osmdesát stupňů. Která z nich sedí na Scrooge?'},
+{a:'L',m:15,r:'pdf',t:'Nevědomost a Nouze',q:'Pod pláštěm ducha přítomných Vánoc se skrývají dvě děti. Co podle tebe představují a proč je Dickens do příběhu dal?'},
+{a:'S',m:15,r:'pdf',t:'Co ukáže třetí duch?',q:'Než budeš číst dál, napiš tři předpovědi, co Scroogeovi ukáže duch budoucích Vánoc. Po přečtení si je porovnej s textem.'},
+{a:'J',m:5,r:'app',t:'Mrazivé i/y',q:'Doplň i/y do zimních vět z příběhu.'},
+{a:'L',m:15,r:'pdf',t:'Hrob bez jména',q:'Proč na Scrooge tolik zapůsobí opuštěný hrob? Proberte to ve dvojicích a zapište tři myšlenky.'},
+{a:'S',m:15,r:'pdf',t:'Scroogeův deník',q:'Scrooge se probudí ráno na Boží hod vánoční. Napiš jeho deníkový zápis o tom, co ten den udělá jinak.'},
+{a:'J',m:5,r:'pdf',t:'Kup toho krocana!',q:'Scrooge z okna posílá chlapce pro největšího krocana. Napiš jeho pokyny v rozkazovacím způsobu.'},
+{a:'L',m:15,r:'app',t:'Velký vánoční kvíz',q:'Prověř, co si pamatuješ z celého příběhu.'},
+{a:'S',m:15,r:'pdf',t:'Proměna ve čtyřech obrázcích',q:'Nakresli komiks o čtyřech okénkách: Scrooge na začátku, s duchy, po probuzení a o rok později.'},
+{a:'L',m:5,r:'pdf',t:'Co si odnáším',q:'Co by sis z příběhu Ebenezera Scrooge vzal(a) do svých Vánoc? Napiš jednu větu na papírovou ozdobu a pověste ji ve třídě.'}
+];
+T.forEach((x,i)=>{x.d=i+1;x.au=i%4;x.g=Math.floor(i/8);x.u=''});
+const COLS=[95,205],ROWS=[170,224,278,332];
+const $=id=>document.getElementById(id);
+const store={get(){try{return JSON.parse(localStorage.getItem('koleda26')||'[]')}catch(e){return []}},set(v){try{localStorage.setItem('koleda26',JSON.stringify(v))}catch(e){}}};
+let opened=new Set(store.get());
+
+function pragueDate(){const s=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Prague',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());const [y,m,d]=s.split('-').map(Number);return {y,m,d}}
+const preview=()=>location.hash==='#nahled';
+function openUpTo(){if(preview())return 24;const {y,m,d}=pragueDate();if(y>YEAR)return 24;if(y===YEAR&&m===12)return Math.min(d,24);return 0}
+function todayNum(){if(preview())return 0;const {y,m,d}=pragueDate();return y===YEAR&&m===12&&d<=24?d:0}
+
+function houseSvg(g){
+  const c=HOUSE[g];
+  return `<svg viewBox="0 0 300 440" aria-hidden="true">
+  <rect x="206" y="26" width="28" height="60" fill="${c}"/><rect x="202" y="20" width="36" height="10" rx="3" fill="#f7f6f2"/>
+  <polygon points="8,98 150,18 292,98" fill="#2a2235"/>
+  <path d="M8,98 L150,18 L292,98 L284,104 L150,30 L16,104 Z" fill="#f7f6f2"/>
+  <rect x="20" y="96" width="260" height="326" fill="${c}"/>
+  <rect x="150" y="96" width="130" height="326" fill="#00000026"/>
+  <g stroke="#00000022" stroke-width="2">${[150,196,250,304,358,402].map(y=>`<line x1="20" x2="280" y1="${y}" y2="${y}"/>`).join('')}</g>
+  <rect x="46" y="106" width="208" height="38" rx="5" fill="#241811" stroke="#d9b46a" stroke-width="2"/>
+  <text x="150" y="131" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-weight="700" font-size="17" fill="#f1d38f">${SIGNS[g]}</text>
+  <path d="M128,420 V378 a22,22 0 0 1 44,0 V420 Z" fill="#241811"/><circle cx="163" cy="400" r="2.5" fill="#d9b46a"/>
+  <rect x="118" y="418" width="64" height="8" fill="#5a5560"/>
+  <circle cx="108" cy="386" r="10" fill="#ffd27a" opacity=".35"/><circle cx="108" cy="386" r="4" fill="#ffe7a8"/><rect x="106" y="390" width="4" height="12" fill="#241811"/>
+  <rect x="0" y="420" width="300" height="20" rx="8" fill="#f7f6f2"/>
+  </svg>`;
+}
+function render(){
+  const upTo=openUpTo(),td=todayNum();
+  $('street').innerHTML=[0,1,2].map(g=>{
+    const wins=T.filter(x=>x.g===g).map((x,k)=>{const lit=x.d<=upTo,done=lit&&opened.has(x.d);
+      return `<button class="win${lit?' lit':''}${done?' done':''}${x.d===td?' today':''}" data-d="${x.d}" style="left:${(COLS[k%2]/3).toFixed(2)}%;top:${(ROWS[Math.floor(k/2)]/4.4).toFixed(2)}%" aria-label="Okno ${x.d}${lit?(done?', otevřeno':', rozsvíceno'):', zatím zhasnuto'}"><span>${x.d}</span>${done?'<i class="ck">✓</i>':''}</button>`}).join('');
+    return `<figure id="h${g}"><div class="house">${houseSvg(g)}${wins}</div></figure>`}).join('');
+  const n=$('notice'),{y,m,d}=pragueDate();
+  if(preview()){n.className='notice on prev';n.textContent='Náhled pro autorky: všechna okna jsou rozsvícená. Žáci tenhle režim neuvidí.'}
+  else if(upTo===0){const left=Math.round((Date.UTC(YEAR,11,1)-Date.UTC(y,m-1,d))/864e5);n.className='notice on';n.textContent=left>0?`Kalendář se rozsvítí 1. prosince. Zbývá ${left} ${left===1?'den':left<5?'dny':'dní'}.`:'Kalendář se brzy rozsvítí.'}
+  else n.className='notice';
+  $('prevLink').textContent=preview()?'Zavřít náhled':'Náhled pro autorky (jen v prototypu)';
+  $('prevLink').setAttribute('href',preview()?'#':'#nahled');
+}
+function scrollToToday(){const td=todayNum();if(!td)return;const f=$('h'+Math.floor((td-1)/8));const s=$('street');if(s.scrollWidth>s.clientWidth)s.scrollLeft=f.offsetLeft-s.offsetLeft-16}
+
+function show(html){$('card').innerHTML=`<button class="x" id="x" aria-label="Zavřít">×</button>`+html;$('ov').classList.add('on');$('x').focus()}
+function close(){$('ov').classList.remove('on')}
+function openTask(d){
+  const x=T[d-1],a=AUTHORS[x.au];
+  const acts=x.r==='pdf'
+   ?`<a class="btn dark" data-u="${x.u}" href="${x.u||'#'}" target="_blank" rel="noopener">Otevřít pracovní list (PDF)</a><a class="btn light" data-u="${x.u}" href="${x.u||'#'}" target="_blank" rel="noopener">Vytisknout</a>`
+   :`<a class="btn dark" data-u="${x.u}" href="${x.u||'#'}" target="_blank" rel="noopener">Otevřít online aplikaci</a>`;
+  show(`<div class="tags"><span class="tag t" style="background:var(--${x.a})">${AREA[x.a]}</span><span class="tag">${x.m===5?'rychlovka · 5 min':'15–20 min'}</span></div>
+  <h2 id="mt">${x.d}. prosince: ${x.t}</h2><p class="task">${x.q}</p><div class="acts">${acts}</div>
+  <div class="by">Úkol připravila <button class="lnk" data-au="${x.au}">${a.n}</button></div>`);
+}
+function openAuthors(){
+  show(`<h2 id="mt">Kdo stojí za kalendářem</h2><p class="task" style="color:#5b5f73">Jsme češtinářky, které rády tvoří materiály pro žáky i pro kolegy.</p>
+  <div class="authors">${AUTHORS.map(a=>`<div class="au"><div class="av" style="background:${a.c}">${a.i}${a.p?`<img src="${a.p}" alt="${a.n}" loading="lazy" onerror="this.remove()">`:''}</div><div><h3>${a.n}</h3>
+  <p>${a.b}</p>
+  <div class="chips">${a.links.map(([l,u])=>`<a class="chip" href="${u.replace(/&/g,'&amp;')}" target="_blank" rel="noopener">${l}</a>`).join('')}</div></div></div>`).join('')}</div>`);
+}
+let tt;function toast(m){$('toast').textContent=m;$('toast').classList.add('show');clearTimeout(tt);tt=setTimeout(()=>$('toast').classList.remove('show'),2400)}
+
+$('street').addEventListener('click',e=>{const b=e.target.closest('.win');if(!b)return;const d=+b.dataset.d;
+  if(d>openUpTo()){b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');toast(`Okno ${d} se rozsvítí ${d}. prosince.`);return}
+  if(!opened.has(d)){opened.add(d);store.set([...opened]);render()}openTask(d)});
+$('card').addEventListener('click',e=>{
+  if(e.target.closest('#x')){close();return}
+  const au=e.target.closest('[data-au]');if(au){openAuthors();return}
+  const l=e.target.closest('a[data-u]');if(l&&!l.dataset.u){e.preventDefault();toast('V hotové verzi se tady otevře soubor nebo aplikace.')}
+  if(e.target.closest('[data-demo]'))toast('Odkaz doplníme podle toho, co pošlete.');
+});
+$('openAuthors').addEventListener('click',openAuthors);
+$('ov').addEventListener('click',e=>{if(e.target.id==='ov')close()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+window.addEventListener('hashchange',render);
+render();scrollToToday();
+}
+</script>
+</body>
+</html>
