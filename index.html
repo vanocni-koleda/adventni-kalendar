@@ -154,7 +154,7 @@ const T=[
 {a:'J',m:5,r:'pdf',t:'„Nesmysl!“ řekl Scrooge',q:'Přepiš rozhovor Scrooge se synovcem a doplň správně interpunkci v přímé řeči.'},
 {a:'S',m:15,r:'pdf',t:'Dopis malému Ebenezerovi',q:'Duch minulých Vánoc ukáže Scroogeovi, jak o Vánocích sedí jako chlapec sám ve škole. Napiš malému Ebenezerovi dopis.'},
 {a:'L',m:15,r:'pdf',t:'Fezziwig, nebo Scrooge?',q:'Porovnej starého Fezziwiga a Scrooge jako zaměstnavatele. V čem se liší a v čem jsou si podobní? Vyplň Vennův diagram.'},
-{a:'J',m:5,r:'app',t:'Slovní druhy pod stromečkem',q:'Roztřiď slova z vánoční ukázky podle slovních druhů.'},
+{a:'J',m:5,r:'app',au:5,u:'materialy/kviz-10.html',t:'Kdo má hluboko do kapsy?',q:'Scrooge by si pro korunu nechal koleno vrtat. Čeština má o penězích spoustu přísloví a rčení. Vyzkoušej si v kvízu, kolik jich znáš.'},
 {a:'L',m:15,r:'pdf',t:'Vánoce u Cratchitových',q:'Přečti si ukázku o štědrovečerní večeři u Cratchitových a odpověz na otázky. Co dělá jejich Vánoce šťastnými, i když toho mají málo?'},
 {a:'S',m:15,r:'pdf',t:'Prostřený stůl',q:'Popiš sváteční stůl u Cratchitových, nebo jakýkoli vymyšlený, tak, aby si ho čtenář dokázal představit.'},
 {a:'J',m:5,r:'pdf',t:'Studenější než led',q:'Dickens popisuje Scrooge pomocí přirovnání. Vymysli pět vlastních přirovnání, třeba ke slovům chladný, tvrdý nebo šťastný.'},
@@ -171,7 +171,7 @@ const T=[
 {a:'S',m:15,r:'pdf',t:'Proměna ve čtyřech obrázcích',q:'Nakresli komiks o čtyřech okénkách: Scrooge na začátku, s duchy, po probuzení a o rok později.'},
 {a:'L',m:5,r:'pdf',t:'Co si odnáším',q:'Co by sis z příběhu Ebenezera Scrooge vzal(a) do svých Vánoc? Napiš jednu větu na papírovou ozdobu a pověste ji ve třídě.'}
 ];
-T.forEach((x,i)=>{x.d=i+1;x.au=i%6;x.g=Math.floor(i/8);x.u=x.r==='pdf'?'materialy/'+String(i+1).padStart(2,'0')+'.pdf':(x.u||'')});
+T.forEach((x,i)=>{x.d=i+1;if(x.au===undefined)x.au=i%6;x.g=Math.floor(i/8);x.u=x.u||(x.r==='pdf'?'materialy/'+String(i+1).padStart(2,'0')+'.pdf':'')});
 const COLS=[95,205],ROWS=[170,224,278,332];
 const $=id=>document.getElementById(id);
 const store={get(){try{return JSON.parse(localStorage.getItem('koleda26')||'[]')}catch(e){return []}},set(v){try{localStorage.setItem('koleda26',JSON.stringify(v))}catch(e){}}};
