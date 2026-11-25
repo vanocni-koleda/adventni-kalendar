@@ -90,6 +90,14 @@ background:radial-gradient(circle,#ffffff4d 0 1px,transparent 1.6px) 0 0/38px 44
 .ghost{border-radius:14px;padding:14px;background:#f5f6fa;border-top:5px solid var(--gc);display:flex;flex-direction:column;gap:6px}
 .ghost b{color:var(--gc);font-size:14px}
 .ghost span{font-size:15px;line-height:1.45}
+.arow input.warn{border-color:#f0a23e;background:#fff6e6}
+.arow input.miss{border-color:#c22f42}
+.acro-msg{margin-top:10px;color:#b4532a;font-weight:700;min-height:1em}
+.acro-card{margin-top:18px;border-radius:16px;padding:20px 22px;color:#f4efe6;background:radial-gradient(circle,#ffffff40 0 1px,transparent 1.6px) 0 0/34px 40px,linear-gradient(160deg,#141a33,#2b3560)}
+.acro-card b{display:block;font:800 22px "Playfair Display",Georgia,serif;margin-bottom:10px;color:#fff}
+.acro-card div{display:flex;gap:12px;align-items:baseline;padding:4px 0}
+.acro-card span{flex:none;width:30px;font:800 22px "Playfair Display",Georgia,serif;color:#ffd27a}
+.acro-note{margin:12px 0 0;color:#5b5f73}
 .acro{display:grid;gap:8px;margin-top:18px}
 .arow{display:grid;grid-template-columns:48px minmax(0,1fr);gap:10px;align-items:center}
 .al{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font:800 26px "Playfair Display",Georgia,serif;color:#2a1a06;background:radial-gradient(circle at 50% 40%,#fff1c2,#ffd27a 60%,#f0a23e);box-shadow:inset 0 0 0 2px #e8dcc2}
@@ -186,7 +194,7 @@ const T=[
 {a:'Z',m:5,r:'app',au:0,u:'https://www.bookwidgets.com/play/ovMtQweU-iQAESjQGGQAAA/EJM8REZ/scrooge-a-koled',t:'Koleda za dveřmi',q:'Na začátku příběhu zazpíval Scroogeovi za dveřmi malý koledník. Scrooge se tak rozzlobil, že ho vyhnal pravítkem! Poslechni si koledu a staň se na chvíli češtinářským detektivem.',bl:'Stát se češtinářským detektivem'},
 {a:"L",m:15,r:"pdf",au:5,t:"Návštěva u Cratchitových",q:"Duch současných Vánoc vezme Scrooge na návštěvu k rodině jeho písaře Boba Cratchita. Poslechněte si ukázku z audioknihy (od 23:33 do 26:36).\n\nDo tabulky v pracovním listu pak zapište větu nebo myšlenku, která vás zaujala, a nakreslete ji. Nakonec vysvětlete, proč je podle vás důležitá a čím vás oslovila.",extra:[["Poslechnout audioknihu", "https://www.youtube.com/watch?v=-OQv3GH1Uss&t=1413s"]]},
 {a:'J',m:5,r:'pdf',t:'Srdce z kamene',q:'Vysvětli význam ustálených spojení, například mít srdce z kamene nebo otočit o sto osmdesát stupňů. Která z nich sedí na Scrooge?'},
-{a:'L',m:15,r:'pdf',t:'Nevědomost a Nouze',q:'Pod pláštěm ducha přítomných Vánoc se skrývají dvě děti. Co podle tebe představují a proč je Dickens do příběhu dal?'},
+{a:'L',m:15,r:'pdf',t:'Nevědomost a Nouze',q:'Pod pláštěm ducha současných Vánoc se skrývají dvě děti. Co podle tebe představují a proč je Dickens do příběhu dal?'},
 {a:"S",m:15,r:"none",au:1,t:"Scrooge na titulních stranách",q:"Scrooge se po návštěvě tří duchů probudil jako vyměněný člověk. Zpráva o jeho proměně se rychle rozšířila celým Londýnem. Představ si, že o ní informovaly i místní noviny."},
 {a:"S",m:15,r:"pdf",au:5,t:"Co je smyslem Vánoc?",q:"Scrooge si myslel, že nejdůležitější jsou peníze. Za jedinou noc ale zjistil, že se mýlil. A co si myslíte vy? S pomocí filtrační nálevky přefiltrujte své nápady, až zůstane jen to nejdůležitější."},
 {a:'L',m:15,r:'pdf',t:'Hrob bez jména',q:'Proč na Scrooge tolik zapůsobí opuštěný hrob? Proberte to ve dvojicích a zapište tři myšlenky.'},
@@ -243,12 +251,50 @@ function openTask(d){
   const x=T[d-1],a=AUTHORS[x.au];
   const lnk=(l,u)=>`<a class="btn dark" data-u="${u}" href="${u||'#'}" target="_blank" rel="noopener">${l}</a>`;
   const acts=(x.extra||[]).map(([l,u])=>lnk(l,u).replace('btn dark','btn light')).join('')+(x.r==='pdf'?lnk(x.bl||'Otevřít pracovní list',x.u):x.r==='app'?lnk(x.bl||'Otevřít online aplikaci',x.u):'');
-  const ghosts=x.ghosts?`<div class="ghosts">${[['Duch minulých Vánoc','Na co z letošního roku rád(a) vzpomínáš?','#8a4a5c'],['Duch přítomných Vánoc','Co tě dělá šťastným/šťastnou právě teď?','#3d6a8f'],['Duch budoucích Vánoc','Co bys příště udělal(a) jinak?','#4a4858']].map(([h,t,c])=>`<div class="ghost" style="--gc:${c}"><b>${h}</b><span>${t}</span></div>`).join('')}</div>`:'';
+  const ghosts=x.ghosts?`<div class="ghosts">${[['Duch minulých Vánoc','Na co z letošního roku rád(a) vzpomínáš?','#8a4a5c'],['Duch současných Vánoc','Co tě dělá šťastným/šťastnou právě teď?','#3d6a8f'],['Duch budoucích Vánoc','Co bys příště udělal(a) jinak?','#4a4858']].map(([h,t,c])=>`<div class="ghost" style="--gc:${c}"><b>${h}</b><span>${t}</span></div>`).join('')}</div>`:'';
   let acro='';if(x.acro){let saved={};try{saved=JSON.parse(localStorage.getItem('koleda26-acro')||'{}')}catch(e){}
-    acro=`<div class="acro">${[...x.acro].map((ch,k)=>`<label class="arow"><span class="al">${ch}</span><input data-k="${k}" value="${(saved[k]||'').replace(/"/g,'&quot;')}" placeholder="slovo nebo věta…" aria-label="Písmeno ${ch}"></label>`).join('')}</div>`}
+    acro=`<div class="acro">${[...x.acro].map((ch,k)=>`<label class="arow"><span class="al">${ch}</span><input data-k="${k}" value="${(saved[k]||'').replace(/"/g,'&quot;')}" placeholder="slovo nebo věta…" aria-label="Písmeno ${ch}"></label>`).join('')}</div><div class="acts"><button class="btn gold" id="acroDone">Hotovo</button></div><div class="acro-msg" id="acroMsg" role="status"></div><div id="acroOut"></div>`}
   show(`<div class="mhead"><span class="num">${x.d}</span><div><span class="eb">${x.d}. prosince</span><h2 id="mt">${x.t}</h2></div></div>${x.letter?`<div class="letter"><p>${x.letter}</p><p class="sig">Ebenezer Scrooge</p></div>`:''}${x.box?`<div class="ask"><b>A teď ještě něco pro tebe</b><p class="task">${x.q}</p></div>`:`<p class="task">${x.q}</p>`}${ghosts}${acro}${acts?`<div class="acts">${acts}</div>`:''}
   <div class="by">Úkol připravila <button class="lnk" data-au="${x.au}">${a.n}</button></div>`,'hh');
   document.querySelectorAll('.acro input').forEach(inp=>inp.addEventListener('input',()=>{const o={};document.querySelectorAll('.acro input').forEach(i=>o[i.dataset.k]=i.value);try{localStorage.setItem('koleda26-acro',JSON.stringify(o))}catch(e){}}));
+  if(x.acro)acroSetup(x.acro);
+}
+const FIRST={A:'AÁ',E:'EÉĚ',O:'OÓ',D:'DĎ',I:'IÍ',U:'UÚŮ',C:'CČ',R:'RŘ',S:'SŠ',T:'TŤ',Z:'ZŽ',N:'NŇ',Y:'YÝ'};
+function acroSetup(word){
+  const done=$('acroDone');if(!done)return;
+  done.addEventListener('click',()=>{
+    const rows=[...document.querySelectorAll('.acro input')];let bad=0,empty=0;
+    rows.forEach((inp,k)=>{const v=inp.value.trim().replace(/^[„"'“(]+/,''),ch=word[k],ok=(FIRST[ch]||ch).includes((v[0]||'').toUpperCase());
+      inp.classList.toggle('warn',!!v&&!ok);inp.classList.toggle('miss',!v);if(!v)empty++;else if(!ok)bad++});
+    const msg=$('acroMsg');
+    if(empty){msg.textContent=`Ještě ti chybí ${empty===1?'jeden řádek':empty+' řádky'}.`;return}
+    if(bad){msg.textContent='Zkontroluj oranžové řádky: nezačínají správným písmenem.';return}
+    msg.textContent='';
+    const lines=rows.map((r,k)=>[word[k],r.value.trim()]);
+    $('acroOut').innerHTML=`<div class="acro-card"><b>Můj akrostich ${word}</b>${lines.map(([c,t])=>`<div><span>${c}</span>${t.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</div>`).join('')}</div>
+    <p class="acro-note">Hotovo! Ukaž svůj akrostich paní učitelce nebo panu učiteli. Můžeš si ho stáhnout jako obrázek, nebo zkopírovat a poslat.</p>
+    <div class="acts"><button class="btn dark" id="acroPng">Stáhnout obrázek</button><button class="btn light" id="acroCopy">Zkopírovat text</button></div>`;
+    $('acroPng').addEventListener('click',()=>acroPng(word,lines));
+    $('acroCopy').addEventListener('click',async()=>{const t=`Můj akrostich ${word}\n`+lines.map(([c,t])=>`${c} – ${t}`).join('\n');try{await navigator.clipboard.writeText(t);toast('Zkopírováno.')}catch(e){toast('Kopírování se nepovedlo, označ text ručně.')}});
+    $('acroOut').scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+}
+function acroPng(word,lines){
+  const W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');
+  const bg=g.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#0f1429');bg.addColorStop(1,'#2b3560');g.fillStyle=bg;g.fillRect(0,0,W,H);
+  g.fillStyle='rgba(255,255,255,.35)';for(let i=0;i<140;i++){g.beginPath();g.arc((i*137)%W,(i*263)%H,1+(i%3),0,7);g.fill()}
+  g.fillStyle='#ffd27a';g.font='700 40px "Hanken Grotesk", sans-serif';g.fillText('Adventní kalendář · Vánoční koleda',90,140);
+  g.fillStyle='#fff';g.font='800 84px "Playfair Display", Georgia, serif';g.fillText('Můj akrostich '+word,90,240);
+  const wrap=(t,max)=>{const w=t.split(' '),out=[];let l='';w.forEach(x=>{const tt=l?l+' '+x:x;if(g.measureText(tt).width>max&&l){out.push(l);l=x}else l=tt});if(l)out.push(l);return out.slice(0,2)};
+  let y=330;
+  lines.forEach(([ch,t])=>{
+    const gr=g.createRadialGradient(150,y+50,6,150,y+50,60);gr.addColorStop(0,'#fff1c2');gr.addColorStop(.6,'#ffd27a');gr.addColorStop(1,'#f0a23e');
+    g.fillStyle=gr;g.beginPath();g.roundRect(100,y,100,100,22);g.fill();
+    g.fillStyle='#2a1a06';g.font='800 64px "Playfair Display", Georgia, serif';g.textAlign='center';g.fillText(ch,150,y+72);g.textAlign='left';
+    g.fillStyle='#f4efe6';g.font='600 40px "Hanken Grotesk", sans-serif';const ls=wrap(t,760);
+    ls.forEach((l,k)=>g.fillText(l,240,y+(ls.length===1?66:44+k*48)));
+    y+=160});
+  c.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='akrostich-koleda.png';document.body.appendChild(a);a.click();a.remove()});
 }
 function shuffle(arr){const r=arr.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]]}return r}
 function openAuthors(){
