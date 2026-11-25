@@ -158,7 +158,7 @@ const T=[
 {a:'L',m:15,r:'pdf',t:'Vánoce u Cratchitových',q:'Přečti si ukázku o štědrovečerní večeři u Cratchitových a odpověz na otázky. Co dělá jejich Vánoce šťastnými, i když toho mají málo?'},
 {a:'S',m:15,r:'pdf',t:'Prostřený stůl',q:'Popiš sváteční stůl u Cratchitových, nebo jakýkoli vymyšlený, tak, aby si ho čtenář dokázal představit.'},
 {a:'J',m:5,r:'pdf',t:'Studenější než led',q:'Dickens popisuje Scrooge pomocí přirovnání. Vymysli pět vlastních přirovnání, třeba ke slovům chladný, tvrdý nebo šťastný.'},
-{a:'L',m:15,r:'app',t:'Časová osa',q:'Seřaď hlavní události příběhu ve správném pořadí.'},
+{a:'J',m:5,r:'app',au:0,u:'https://www.bookwidgets.com/play/ovMtQweU-iQAESjQGGQAAA/EJM8REZ/scrooge-a-koled',t:'Koleda za dveřmi',q:'Na začátku příběhu zazpíval Scroogeovi za dveřmi malý koledník. Scrooge se tak rozzlobil, že ho vyhnal pravítkem! Poslechni si tu koledu i ty a staň se na chvíli češtinářským detektivem: schovávají se v ní slova, která už dnes skoro nikdo neříká.'},
 {a:'S',m:15,r:'pdf',t:'Reportáž z vánočního Londýna',q:'Jsi reportér v Londýně na Štědrý den roku 1843. Napiš krátkou reportáž o tom, co vidíš a slyšíš v ulicích.'},
 {a:'J',m:5,r:'pdf',t:'Srdce z kamene',q:'Vysvětli význam ustálených spojení, například mít srdce z kamene nebo otočit o sto osmdesát stupňů. Která z nich sedí na Scrooge?'},
 {a:'L',m:15,r:'pdf',t:'Nevědomost a Nouze',q:'Pod pláštěm ducha přítomných Vánoc se skrývají dvě děti. Co podle tebe představují a proč je Dickens do příběhu dal?'},
@@ -178,7 +178,7 @@ const store={get(){try{return JSON.parse(localStorage.getItem('koleda26')||'[]')
 let opened=new Set(store.get());
 
 function pragueDate(){const s=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Prague',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());const [y,m,d]=s.split('-').map(Number);return {y,m,d}}
-const preview=()=>false;
+const preview=()=>location.hash==='#nahled-autorky'; /* DOČASNĚ: náhled pro natáčení, před spuštěním smazat */
 function openUpTo(){if(preview())return 24;const {y,m,d}=pragueDate();if(y>YEAR)return 24;if(y===YEAR&&m===12)return Math.min(d,24);return 0}
 function todayNum(){if(preview())return 0;const {y,m,d}=pragueDate();return y===YEAR&&m===12&&d<=24?d:0}
 
@@ -250,6 +250,7 @@ $('card').addEventListener('click',e=>{
 $('openAuthors').addEventListener('click',openAuthors);
 $('ov').addEventListener('click',e=>{if(e.target.id==='ov')close()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+window.addEventListener('hashchange',render);
 render();scrollToToday();
 }
 </script>
