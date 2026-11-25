@@ -509,8 +509,11 @@ function proofSetup(x){
     if(st[i]==='ok'||st[i]==='shown')return;
     if(sel.has(i)){sel.delete(i);delete st[i];s.classList.remove('on','bad')}else{if(sel.size>=8){toast('Označených slov je moc. Nějaké nejdřív odeber.');return}sel.set(i,'');s.classList.add('on')}
     draw();const n=document.querySelector(`.prow input[data-i="${i}"]`);if(n)n.focus()});
-  $('hint1').addEventListener('click',()=>{$('hintBox').hidden=false;$('hintBox').innerHTML=x.hint;$('hint1').hidden=true;$('hint2').hidden=false});
-  $('hint2').addEventListener('click',()=>{document.querySelectorAll('.pw').forEach(s=>{if(x.errors[s.dataset.w])s.classList.add('hl')});$('hint2').hidden=true;toast('Chybná slova jsou podtržená. Klikni na ně a oprav je.')});
+  $('hintBox').innerHTML=x.hint;
+  $('hint1').addEventListener('click',()=>{const on=$('hintBox').hidden;$('hintBox').hidden=!on;$('hint1').innerHTML=on?'<span aria-hidden="true">💡</span> Skrýt nápovědu':'<span aria-hidden="true">💡</span> Nápověda';$('hint1').setAttribute('aria-expanded',on);$('hint2').hidden=false});
+  $('hint2').addEventListener('click',()=>{const on=!$('hint2').classList.contains('act');$('hint2').classList.toggle('act',on);
+    document.querySelectorAll('.pw').forEach(s=>{if(x.errors[s.dataset.w])s.classList.toggle('hl',on)});
+    $('hint2').innerHTML=on?'<span aria-hidden="true">🔍</span> Skrýt chybná slova':'<span aria-hidden="true">🔍</span> Ukázat chybná slova';if(on)toast('Chybná slova jsou podtržená. Klikni na ně a oprav je.')});
   $('pCheck').addEventListener('click',()=>{
     const open=[...sel.keys()].filter(i=>st[i]!=='ok'&&st[i]!=='shown');
     if(!open.length){$('pMsg').style.color='#b4532a';$('pMsg').textContent='Klikni v textu na slovo, ve kterém je podle tebe chyba.';return}
