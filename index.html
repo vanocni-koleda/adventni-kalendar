@@ -193,6 +193,14 @@ background:radial-gradient(circle,#ffffff4d 0 1px,transparent 1.6px) 0 0/38px 44
 .prow s{color:#c22f42;font-weight:700}
 .prow input{font:16px "Hanken Grotesk",sans-serif;min-height:44px;padding:0 12px;border-radius:12px;border:2px solid #d8dbe6;color:#1d1d2b;background:#fff}
 .px{width:40px;height:40px;border-radius:50%;border:0;background:#eef0f6;font-size:20px;cursor:pointer}
+.pitem{display:grid;gap:6px}
+.pfb{font-size:14px;line-height:1.45;padding:8px 12px;border-radius:10px}
+.pfb.g{background:#e5f5ed}.pfb.h{background:#fff3e0}.pfb.n{background:#f3f4f8}
+.pfb .lnk{font-size:14px;margin-left:4px}
+.pok{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#1f8a5a;color:#fff;font-weight:800}
+.px{color:#5b5f73}
+.pw.bad{background:#eef0f6;outline:2px dashed #9aa0b5}
+.pw.fixed{background:#e5f5ed;outline:2px solid #1f8a5a;text-decoration:none}
 .psol{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .psol li{padding:10px 14px;border-radius:12px;font-size:15px;line-height:1.45}
 .psol li b{margin-right:6px}.psol li span{color:#4a4d5e}
@@ -468,40 +476,49 @@ function proofHTML(x){
   return `<div class="proof"><b class="ptit">${x.proofTitle}</b><p>${html}</p></div>
   <div class="hints"><button class="btn light" id="hint1"><span aria-hidden="true">💡</span> Nápověda</button><button class="btn light" id="hint2" hidden><span aria-hidden="true">🔍</span> Ukázat chybná slova</button></div>
   <div class="hintbox" id="hintBox" hidden></div>
-  <h3 class="th">Moje opravy <small id="pCount">(0 z 5)</small></h3><div id="pList" class="plist"><p class="pempty">Klikni v textu na slovo, ve kterém je podle tebe chyba.</p></div>
+  <h3 class="th">Moje opravy <small id="pCount">(0 z 5)</small></h3><p class="pempty" style="margin:-4px 0 8px">Opravy můžeš kontrolovat průběžně, třeba po jednom slově.</p><div id="pList" class="plist"><p class="pempty">Klikni v textu na slovo, ve kterém je podle tebe chyba.</p></div>
   <div class="acts"><button class="btn gold" id="pCheck">Zkontrolovat</button><button class="btn light" id="pGive">Nevím si rady, ukaž řešení</button></div><div class="acro-msg" id="pMsg" role="status"></div><div id="pOut"></div>`;
 }
 function proofSetup(x){
-  const sel=new Map();const errIdx={};
-  document.querySelectorAll('.pw').forEach(s=>{if(x.errors[s.dataset.w])errIdx[s.dataset.i]=s.dataset.w});
-  const draw=()=>{const L=$('pList');$('pCount').textContent=`(${sel.size} z 5)`;
+  const sel=new Map();const st={};const done=()=>Object.values(st).filter(v=>v==='ok'||v==='shown').length;
+  const W=i=>document.querySelector(`.pw[data-i="${i}"]`).dataset.w;
+  const isErr=i=>!!x.errors[W(i)];
+  const norm=(w,v)=>{const e=x.errors[w][0];return e==='Vánoce'?v.trim()===e:v.trim().toLowerCase()===e.toLowerCase()};
+  const draw=()=>{const L=$('pList');$('pCount').textContent=`(${done()} z 5)`;
     if(!sel.size){L.innerHTML='<p class="pempty">Klikni v textu na slovo, ve kterém je podle tebe chyba.</p>';return}
-    L.innerHTML=[...sel.entries()].map(([i,v])=>`<label class="prow"><s>${document.querySelector(`.pw[data-i="${i}"]`).dataset.w}</s><span aria-hidden="true">→</span><input data-i="${i}" value="${escH(v)}" placeholder="napiš správně (když nevíš, nech prázdné)"><button class="px" data-i="${i}" aria-label="Odebrat">×</button></label>`).join('');
-    L.querySelectorAll('input').forEach(n=>n.addEventListener('input',()=>sel.set(n.dataset.i,n.value)));
-    L.querySelectorAll('.px').forEach(b=>b.addEventListener('click',()=>{sel.delete(b.dataset.i);document.querySelector(`.pw[data-i="${b.dataset.i}"]`).classList.remove('on');draw()}));
+    L.innerHTML=[...sel.entries()].map(([i,v])=>{const s2=st[i]||'',w=W(i),e=x.errors[w];
+      const fb=s2==='ok'?`<div class="pfb g"><b>Správně!</b> ${e[1]}</div>`:s2==='no'?`<div class="pfb n"><b>Tohle slovo je napsané správně.</b> Odeber ho a hledej dál.</div>`:s2==='fix'?`<div class="pfb h"><b>Chybu jsi našel/našla!</b> Oprava ale ještě nesedí, zkus to znovu. <button class="lnk pshow" data-i="${i}">Nevím, ukaž správně</button></div>`:s2==='shown'?`<div class="pfb h"><b>Správně je: ${e[0]}</b> ${e[1]}</div>`:'';
+      const lock=s2==='ok'||s2==='shown';
+      return `<div class="pitem ${s2}"><label class="prow"><s>${w}</s><span aria-hidden="true">→</span><input data-i="${i}" value="${escH(lock&&s2==='shown'?e[0]:v)}" placeholder="napiš správně"${lock?' disabled':''}>${lock?'<span class="pok" aria-hidden="true">✓</span>':`<button class="px" data-i="${i}" aria-label="Odebrat slovo" title="Odebrat slovo">×</button>`}</label>${fb}</div>`}).join('');
+    L.querySelectorAll('input').forEach(n=>n.addEventListener('input',()=>{sel.set(n.dataset.i,n.value);if(st[n.dataset.i]==='fix'){}}));
+    L.querySelectorAll('.px').forEach(b=>b.addEventListener('click',()=>{sel.delete(b.dataset.i);delete st[b.dataset.i];document.querySelector(`.pw[data-i="${b.dataset.i}"]`).classList.remove('on','bad');draw()}));
+    L.querySelectorAll('.pshow').forEach(b=>b.addEventListener('click',()=>{st[b.dataset.i]='shown';const w=document.querySelector(`.pw[data-i="${b.dataset.i}"]`);w.classList.add('fixed');draw();status()}));
   };
-  document.querySelector('.proof').addEventListener('click',e=>{const s=e.target.closest('.pw');if(!s||$('pCheck')===null)return;const i=s.dataset.i;
-    if(sel.has(i)){sel.delete(i);s.classList.remove('on')}else{if(sel.size>=5){toast('Chyb je jen pět. Nejdřív nějaké slovo odeber.');return}sel.set(i,'');s.classList.add('on')}
+  const status=()=>{const n=done(),m=$('pMsg');
+    if(n===5){finish();return}
+    m.style.color='#5b5f73';m.textContent=n?`Máš ${n} z 5. Ještě ti ${5-n===1?'zbývá najít jedna chyba':'zbývá najít '+(5-n)+' chyby'}.`:''};
+  const finish=(gave)=>{
+    const rows=Object.entries(x.errors).map(([w,e])=>`<li class="g"><b>${w} → ${e[0]}</b><br><span>${e[1]}</span></li>`).join('');
+    document.querySelectorAll('.pw').forEach(s=>{if(x.errors[s.dataset.w])s.classList.add('fixed')});
+    $('pMsg').style.color='#1f8a5a';$('pMsg').textContent=gave?'Tady je řešení.':'Výborně! Našel/našla jsi všech pět chyb. 🎉';
+    $('pOut').innerHTML=`<h3 class="th">Řešení</h3><ul class="psol">${rows}</ul>`;
+    ['pCheck','pGive'].forEach(id=>{const b=$(id);if(b)b.remove()});
+    document.querySelectorAll('.prow input').forEach(n=>n.disabled=true);document.querySelectorAll('.px').forEach(n=>n.remove());
+  };
+  document.querySelector('.proof').addEventListener('click',e=>{const s=e.target.closest('.pw');if(!s||!$('pCheck'))return;const i=s.dataset.i;
+    if(st[i]==='ok'||st[i]==='shown')return;
+    if(sel.has(i)){sel.delete(i);delete st[i];s.classList.remove('on','bad')}else{if(sel.size>=8){toast('Označených slov je moc. Nějaké nejdřív odeber.');return}sel.set(i,'');s.classList.add('on')}
     draw();const n=document.querySelector(`.prow input[data-i="${i}"]`);if(n)n.focus()});
   $('hint1').addEventListener('click',()=>{$('hintBox').hidden=false;$('hintBox').innerHTML=x.hint;$('hint1').hidden=true;$('hint2').hidden=false});
-  $('hint2').addEventListener('click',()=>{document.querySelectorAll('.pw').forEach(s=>{if(errIdx[s.dataset.i])s.classList.add('hl')});$('hint2').hidden=true;toast('Chybná slova jsou podtržená. Klikni na ně a oprav je.')});
-  const runCheck=giveUp=>{
-    if(!giveUp){
-      if(sel.size<5){const n=5-sel.size;$('pMsg').textContent=`V textu je pět chyb. Označ ještě ${n===1?'jedno slovo':n+' slova'}.`;return}
-    }
-    let found=0,fixed=0;const rows=[];
-    sel.forEach((v,i)=>{const w=document.querySelector(`.pw[data-i="${i}"]`).dataset.w,e=x.errors[w];
-      if(e){found++;const good=e[0]==='Vánoce'?v.trim()===e[0]:v.trim().toLowerCase()===e[0].toLowerCase();if(good)fixed++;
-        rows.push(`<li class="${good?'g':'h'}"><b>${w} → ${e[0]}</b> ${good?'Správně opraveno!':!v.trim()?'Chybu jsi našel/našla! Takhle se slovo píše správně.':'Chybu jsi našel/našla, ale oprava není správně.'}<br><span>${e[1]}</span></li>`)}
-      else rows.push(`<li class="n"><b>${w}</b> Tohle slovo je napsané správně.</li>`)});
-    Object.entries(x.errors).forEach(([w,e])=>{if(![...sel.keys()].some(i=>document.querySelector(`.pw[data-i="${i}"]`).dataset.w===w))rows.push(`<li class="m"><b>${w} → ${e[0]}</b> Tuhle chybu jsi přehlédl/a.<br><span>${e[1]}</span></li>`)});
-    document.querySelectorAll('.pw').forEach(s=>{if(errIdx[s.dataset.i])s.classList.add('err')});
-    $('pMsg').textContent=`Našel/našla jsi ${found} z 5 chyb a správně opravil/a ${fixed}.`;$('pMsg').style.color=fixed===5?'#1f8a5a':'#b4532a';
-    $('pOut').innerHTML=`<h3 class="th">Řešení</h3><ul class="psol">${rows.join('')}</ul>`;
-    document.querySelectorAll('.prow input,.px').forEach(n=>n.disabled=true);$('pCheck').remove();$('pGive').remove();$('pOut').scrollIntoView({behavior:'smooth',block:'nearest'});
-  };
-  $('pCheck').addEventListener('click',()=>runCheck(false));
-  $('pGive').addEventListener('click',()=>runCheck(true));
+  $('hint2').addEventListener('click',()=>{document.querySelectorAll('.pw').forEach(s=>{if(x.errors[s.dataset.w])s.classList.add('hl')});$('hint2').hidden=true;toast('Chybná slova jsou podtržená. Klikni na ně a oprav je.')});
+  $('pCheck').addEventListener('click',()=>{
+    const open=[...sel.keys()].filter(i=>st[i]!=='ok'&&st[i]!=='shown');
+    if(!open.length){$('pMsg').style.color='#b4532a';$('pMsg').textContent='Klikni v textu na slovo, ve kterém je podle tebe chyba.';return}
+    open.forEach(i=>{const w=W(i),v=sel.get(i),sp=document.querySelector(`.pw[data-i="${i}"]`);
+      if(!isErr(i)){st[i]='no';sp.classList.add('bad')}else if(norm(w,v)){st[i]='ok';sp.classList.remove('on');sp.classList.add('fixed')}else st[i]='fix'});
+    draw();status();
+  });
+  $('pGive').addEventListener('click',()=>finish(true));
 }
 function specialHTML(x){return x.yn?ynHTML(x):x.diamond?diaHTML(x):x.doors?doorHTML(x):x.proof?proofHTML(x):''}
 function specialSetup(x){if(x.yn)ynSetup(x);if(x.diamond)diaSetup(x);if(x.doors)doorSetup(x);if(x.proof)proofSetup(x)}
