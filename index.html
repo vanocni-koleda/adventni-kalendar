@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Adventní kalendář: Vánoční koleda</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Hanken+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,500&family=Hanken+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 /* VOICE: pohádkový, vlídný, pro žáky; přehledný i pro učitelky
    IDEA: zasněžená viktoriánská ulice z Vánoční koledy, okna domů jsou okénka kalendáře
@@ -79,6 +79,14 @@ footer a{color:var(--mute)}
 .tag.t{color:#fff}
 .x{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:0;background:#eef0f6;font-size:24px;cursor:pointer;color:var(--cink)}
 .task{font-size:17px;margin:0;white-space:pre-line}
+.letter{position:relative;margin:4px 0 18px;padding:26px 28px 20px;border-radius:4px;transform:rotate(-.6deg);color:#4a3520;
+background:radial-gradient(ellipse at 15% 20%,#e8d3a3 0,transparent 45%),radial-gradient(ellipse at 85% 90%,#e2c891 0,transparent 40%),linear-gradient(#f7edd3,#efdfb6);
+box-shadow:0 8px 18px #0000002e,inset 0 0 40px #c9a86a55;font:italic 500 18px/1.6 "Playfair Display",Georgia,serif}
+.letter p{margin:0;white-space:pre-line}
+.letter .sig{text-align:right;margin-top:14px;font-size:20px}
+.letter .sig::before{content:"— "}
+.ask{background:#fff6dc;border-left:5px solid var(--glow2);border-radius:12px;padding:14px 18px}
+.ask b{display:block;margin-bottom:4px;color:#8a5a0a}
 .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
 .by{margin-top:22px;padding-top:14px;border-top:1px solid #e4e6ee;font-size:15px;color:#5b5f73}
 .lnk{background:none;border:0;padding:0;font:inherit;color:var(--cink);font-weight:700;text-decoration:underline;cursor:pointer;min-height:auto}
@@ -163,13 +171,13 @@ const T=[
 {a:'J',m:5,r:'pdf',t:'Srdce z kamene',q:'Vysvětli význam ustálených spojení, například mít srdce z kamene nebo otočit o sto osmdesát stupňů. Která z nich sedí na Scrooge?'},
 {a:'L',m:15,r:'pdf',t:'Nevědomost a Nouze',q:'Pod pláštěm ducha přítomných Vánoc se skrývají dvě děti. Co podle tebe představují a proč je Dickens do příběhu dal?'},
 {a:"S",m:15,r:"none",au:1,t:"Scrooge na titulních stranách",q:"Scrooge se po návštěvě tří duchů probudil jako vyměněný člověk. Zpráva o jeho proměně se rychle rozšířila celým Londýnem. Představ si, že o ní informovaly i místní noviny."},
-{a:"S",m:15,r:"pdf",au:5,t:"Co je smyslem Vánoc?",q:"Scrooge si myslel, že nejdůležitější jsou peníze. Za jedinou noc ale zjistil, že se mýlil. A co si myslíte vy? S pomocí filtrační nálevky prosejte svoje nápady, až zůstane jen to nejdůležitější."},
+{a:"S",m:15,r:"pdf",au:5,t:"Co je smyslem Vánoc?",q:"Scrooge si myslel, že nejdůležitější jsou peníze. Za jedinou noc ale zjistil, že se mýlil. A co si myslíte vy? S pomocí filtrační nálevky přefiltrujte své nápady, až zůstane jen to nejdůležitější."},
 {a:'L',m:15,r:'pdf',t:'Hrob bez jména',q:'Proč na Scrooge tolik zapůsobí opuštěný hrob? Proberte to ve dvojicích a zapište tři myšlenky.'},
 {a:"R",m:5,r:"none",au:0,t:"Předvánoční zastavení",q:"Kdybys měl(a) možnost podívat se na svůj letošní rok očima duchů Vánoc, co bys udělal(a) jinak? Zastav se na chvíli a zamysli se."},
 {a:'J',m:5,r:'pdf',t:'Kup toho krocana!',q:'Scrooge z okna posílá chlapce pro největšího krocana. Napiš jeho pokyny v rozkazovacím způsobu.'},
 {a:"T",m:5,r:"none",au:3,t:"Akrostich KOLEDA",q:"Napiš pod sebe písmena K, O, L, E, D, A. Ke každému vymysli slovo nebo celou větu, která souvisí s příběhem o Scroogeovi."},
 {a:'S',m:15,r:'pdf',t:'Proměna ve čtyřech obrázcích',q:'Nakresli komiks o čtyřech okénkách: Scrooge na začátku, s duchy, po probuzení a o rok později.'},
-{a:"R",m:5,r:"none",au:3,t:"Vzkaz od Scrooge",q:"„Během jediné noci jsem pochopil víc než za celý svůj dosavadní život. Uvědomil jsem si, že to nejcennější v životě nejsou peníze ani majetek, ale lidé kolem nás, laskavost a radost, kterou můžeme rozdávat druhým. A že nikdy není pozdě něco změnit.\n\nVánoce nejsou jen o jednom dni v roce. Jejich kouzlo můžeme nosit v sobě každý den – třeba v podobě drobných gest, milých slov nebo obyčejné ochoty někomu pomoci.“\n\nA teď ještě něco pro tebe: Jakou jednu maličkost můžeš udělat i ty, aby Vánoce nekončily Štědrým dnem a jejich kouzlo zůstalo po celý rok?"}
+{a:"R",m:5,r:"none",au:3,t:"Vzkaz od Scrooge",letter:"Během jediné noci jsem pochopil víc než za celý svůj dosavadní život. Uvědomil jsem si, že to nejcennější v životě nejsou peníze ani majetek, ale lidé kolem nás, laskavost a radost, kterou můžeme rozdávat druhým. A že nikdy není pozdě něco změnit.\n\nVánoce nejsou jen o jednom dni v roce. Jejich kouzlo můžeme nosit v sobě každý den – třeba v podobě drobných gest, milých slov nebo obyčejné ochoty někomu pomoci.",box:true,q:"Jakou jednu maličkost můžeš udělat i ty, aby Vánoce nekončily Štědrým dnem a jejich kouzlo zůstalo po celý rok?"}
 ];
 T.forEach((x,i)=>{x.d=i+1;if(x.au===undefined)x.au=i%6;x.g=Math.floor(i/8);x.u=x.u||(x.r==='pdf'?'materialy/'+String(i+1).padStart(2,'0')+'.pdf':'')});
 const COLS=[95,205],ROWS=[170,224,278,332];
@@ -218,7 +226,7 @@ function openTask(d){
   const x=T[d-1],a=AUTHORS[x.au];
   const lnk=(l,u)=>`<a class="btn dark" data-u="${u}" href="${u||'#'}" target="_blank" rel="noopener">${l}</a>`;
   const acts=(x.extra||[]).map(([l,u])=>lnk(l,u).replace('btn dark','btn light')).join('')+(x.r==='pdf'?lnk(x.bl||'Otevřít pracovní list',x.u):x.r==='app'?lnk(x.bl||'Otevřít online aplikaci',x.u):'');
-  show(`<h2 id="mt">${x.d}. prosince: ${x.t}</h2><p class="task">${x.q}</p>${acts?`<div class="acts">${acts}</div>`:''}
+  show(`<h2 id="mt">${x.d}. prosince: ${x.t}</h2>${x.letter?`<div class="letter"><p>${x.letter}</p><p class="sig">Ebenezer Scrooge</p></div>`:''}${x.box?`<div class="ask"><b>A teď ještě něco pro tebe</b><p class="task">${x.q}</p></div>`:`<p class="task">${x.q}</p>`}${acts?`<div class="acts">${acts}</div>`:''}
   <div class="by">Úkol připravila <button class="lnk" data-au="${x.au}">${a.n}</button></div>`);
 }
 function shuffle(arr){const r=arr.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]]}return r}
