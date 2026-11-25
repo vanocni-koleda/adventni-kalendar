@@ -59,6 +59,19 @@ font:800 6.4cqw/1 "Playfair Display",Georgia,serif;color:#aab4d8;display:grid;pl
 .ck{position:absolute;right:-2.6cqw;bottom:-2.6cqw;width:6cqw;height:6cqw;border-radius:50%;background:#fff;color:#1f8a5a;font:800 4cqw/6cqw "Hanken Grotesk",sans-serif;font-style:normal;text-align:center;box-shadow:0 2px 4px #0005;z-index:2}
 .win.shake{animation:shake .35s}
 @keyframes shake{25%{transform:translate(calc(-50% - 4px),-50%)}75%{transform:translate(calc(-50% + 4px),-50%)}}
+.audio{margin-top:34px;padding:22px clamp(16px,3vw,28px);border-radius:22px;background:#ffffff0f;box-shadow:inset 0 0 0 1.5px #ffffff1f}
+.ah{display:flex;gap:14px;align-items:flex-start}
+.ah svg{flex:none;width:34px;height:34px;color:var(--glow);margin-top:2px}
+.audio h2{font-size:clamp(24px,3vw,30px);margin:0}
+.audio p{margin:6px 0 0;color:var(--mute);max-width:62ch}
+.chs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px}
+.ch{display:flex;align-items:center;gap:12px;min-height:56px;padding:10px 14px;border-radius:14px;background:#ffffff12;color:var(--ink);text-decoration:none;transition:background .15s}
+.ch:hover{background:#ffffff22}
+.cn{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font:800 15px "Hanken Grotesk",sans-serif;color:#2a1a06;background:radial-gradient(circle at 50% 45%,#fff1c2,#ffd27a 55%,#f0a23e)}
+.ct{display:flex;flex-direction:column;line-height:1.25}
+.ct b{font-weight:700}
+.ct small{color:var(--mute);font-size:13px}
+@media(max-width:760px){.chs{grid-template-columns:minmax(0,1fr)}}
 .legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:18px;color:var(--mute);font-size:14px}
 .legend span{display:inline-flex;align-items:center;gap:8px}
 .sw{width:18px;height:14px;border-radius:5px 5px 2px 2px;border:2px solid #e8dcc2}
@@ -118,6 +131,73 @@ background:radial-gradient(circle,#ffffff4d 0 1px,transparent 1.6px) 0 0/38px 44
 .acro-card div{display:flex;gap:12px;align-items:baseline;padding:4px 0}
 .acro-card span{flex:none;width:30px;font:800 22px "Playfair Display",Georgia,serif;color:#ffd27a}
 .acro-note{margin:12px 0 0;color:#5b5f73}
+.read{margin-top:16px;padding:18px 20px;border-radius:16px;background:#f7f3e8;line-height:1.6;font-size:16px}
+.read p{margin:0 0 10px}.read p:last-child{margin:0}
+.pf{float:right;width:min(38%,170px);margin:0 0 10px 16px;border-radius:12px;overflow:hidden;box-shadow:0 6px 14px #0003}
+.pf img{display:block;width:100%}
+.yn{margin:0;padding-left:22px;display:grid;gap:12px}
+.yn li{line-height:1.45}
+.ynb{display:flex;gap:8px;margin-top:6px}
+.ynb button{font:700 15px "Hanken Grotesk",sans-serif;min-height:40px;min-width:70px;border-radius:999px;border:2px solid #d8dbe6;background:#fff;color:#1d1d2b;cursor:pointer}
+.ynb button.on{border-color:#2b84c9;background:#e8f1fb}
+.ynb button.ok{border-color:#1f8a5a;background:#e5f5ed}
+.ynb button.bad{border-color:#c22f42;background:#fdebee}
+.ynb.done button{cursor:default}
+.yne{font-size:14px;color:#5b5f73;margin-top:4px}
+.dia{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:18px}
+.drow{width:var(--w);min-width:220px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.drow small{font-size:12px;color:#8a5a0a;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.drow small i{display:block;font-style:normal;text-transform:none;letter-spacing:0;color:#5b5f73;font-weight:600}
+.drow input{width:100%;font:16px "Hanken Grotesk",sans-serif;min-height:46px;padding:0 12px;text-align:center;border-radius:12px;border:2px solid #d8dbe6;color:#1d1d2b;background:#fff}
+.drow input:focus{outline:none;border-color:#f0a23e}
+.drow input.miss{border-color:#c22f42}
+.dfix{display:block;width:100%;padding:10px;border-radius:12px;font:800 20px "Playfair Display",Georgia,serif;color:#2a1a06;background:radial-gradient(circle at 50% 40%,#fff1c2,#ffd27a 60%,#f0a23e)}
+.acro-card.ctr{text-align:center}
+.acro-card .rl{display:block;padding:5px 0}
+.acro-card .rl small{display:block;color:#ffd27a;font-size:13px;font-weight:700}
+.dins{display:flex;gap:8px;width:100%}
+.dins input{flex:1 1 0;min-width:0}
+.dtip{margin:16px 0 0;padding:10px 14px;border-radius:12px;background:#fff6dc;font-weight:700;color:#8a5a0a;text-align:center}
+.dk{position:absolute;left:50%;bottom:14%;transform:translateX(-50%);font:700 12px "Hanken Grotesk",sans-serif;color:#fff;background:#00000055;padding:3px 8px;border-radius:99px;white-space:nowrap}
+.door2.sel .dk{display:none}
+.doors.pulse .dv{animation:knock 2.4s ease-in-out infinite}
+.doors.pulse .door2:nth-child(2) .dv{animation-delay:.3s}.doors.pulse .door2:nth-child(3) .dv{animation-delay:.6s}
+@keyframes knock{0%,70%,100%{transform:none}78%{transform:translateY(-5px)}86%{transform:none}92%{transform:translateY(-3px)}}
+@media(prefers-reduced-motion:reduce){.doors.pulse .dv{animation:none}}
+@media(max-width:600px){.dins{flex-wrap:wrap}.dins input{flex-basis:100%}.drow{width:100%!important}}
+.doors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+.door2{display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px 6px;border:0;background:none;cursor:pointer;font:700 14px "Hanken Grotesk",sans-serif;color:#1d1d2b;text-align:center}
+.dv{position:relative;width:min(100%,110px);aspect-ratio:3/4.4;border-radius:55px 55px 6px 6px;background:var(--dc);box-shadow:inset 0 0 0 6px #e8dcc2,0 8px 16px #0003;transition:transform .25s,box-shadow .25s}
+.knob{position:absolute;right:18%;top:56%;width:10px;height:10px;border-radius:50%;background:#e1bd68}
+.door2:hover .dv{transform:translateY(-3px)}
+.door2.sel .dv{box-shadow:inset 0 0 0 6px #ffd27a,0 0 0 4px #ffd27a88,0 0 28px #ffd27a;background:radial-gradient(circle at 50% 40%,#fff1c2,#ffd27a 50%,var(--dc))}
+.dfields{display:none;margin-top:16px}.dfields.on{display:block}
+.dchosen{font-weight:700;color:#8a5a0a;margin:0 0 10px}
+.dl{display:block;font-weight:700;margin-bottom:12px}
+.dl textarea{display:block;width:100%;margin-top:6px;font:16px/1.5 "Hanken Grotesk",sans-serif;padding:10px 12px;border-radius:12px;border:2px solid #d8dbe6;color:#1d1d2b;background:#fff;resize:vertical}
+.proof{margin-top:16px;padding:18px 20px;border-radius:16px;background:#f7f3e8;line-height:1.85;font-size:17px}
+.ptit{display:block;font:800 19px "Playfair Display",Georgia,serif;margin-bottom:6px}
+.proof p{margin:0}
+.pw{cursor:pointer;border-radius:4px;padding:0 1px}
+.pw:hover{background:#ffe9b0}
+.pw.on{background:#ffd27a;outline:2px solid #f0a23e}
+.pw.hl{text-decoration:underline wavy #c22f42;text-underline-offset:4px}
+.pw.err{background:#fdebee;text-decoration:underline wavy #c22f42;text-underline-offset:4px}
+.hints{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.hintbox{margin-top:10px;padding:12px 16px;border-radius:12px;background:#fff6dc;border-left:5px solid #f0a23e}
+.hintbox ul{margin:6px 0 0;padding-left:20px}
+.th small{font:600 14px "Hanken Grotesk",sans-serif;color:#5b5f73}
+.plist{display:grid;gap:8px}
+.pempty{margin:0;color:#5b5f73}
+.prow{display:grid;grid-template-columns:auto auto minmax(0,1fr) 40px;gap:10px;align-items:center}
+.prow s{color:#c22f42;font-weight:700}
+.prow input{font:16px "Hanken Grotesk",sans-serif;min-height:44px;padding:0 12px;border-radius:12px;border:2px solid #d8dbe6;color:#1d1d2b;background:#fff}
+.px{width:40px;height:40px;border-radius:50%;border:0;background:#eef0f6;font-size:20px;cursor:pointer}
+.psol{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.psol li{padding:10px 14px;border-radius:12px;font-size:15px;line-height:1.45}
+.psol li b{margin-right:6px}.psol li span{color:#4a4d5e}
+.psol .g{background:#e5f5ed}.psol .h{background:#fff3e0}.psol .n{background:#f3f4f8}.psol .m{background:#fdebee}
+@media(max-width:600px){.doors{gap:6px}.door2{font-size:12px}.pf{float:none;width:140px;margin:0 auto 12px}}
 .acro{display:grid;gap:8px;margin-top:18px}
 .arow{display:grid;grid-template-columns:48px minmax(0,1fr);gap:10px;align-items:center}
 .al{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font:800 26px "Playfair Display",Georgia,serif;color:#2a1a06;background:radial-gradient(circle at 50% 40%,#fff1c2,#ffd27a 60%,#f0a23e);box-shadow:inset 0 0 0 2px #e8dcc2}
@@ -175,6 +255,10 @@ box-shadow:0 8px 18px #0000002e,inset 0 0 40px #c9a86a55;font:italic 500 18px/1.
     <span><i class="sw" style="background:var(--glow)"></i>Rozsvíceno, můžeš otevřít</span>
     <span><i class="sw" style="background:var(--glow);box-shadow:0 0 10px var(--glow)"></i>Dnešní okno</span>
   </div>
+<section class="audio" aria-labelledby="audioH">
+  <div class="ah"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="5" height="7" rx="2" fill="currentColor"/><rect x="16" y="14" width="5" height="7" rx="2" fill="currentColor"/></svg><div><h2 id="audioH">Audiokniha po částech</h2><p>Poslechněte si příběh postupně. Kliknutím se audiokniha spustí rovnou od začátku vybrané části.</p></div></div>
+  <div class="chs"><a class="ch" href="https://www.youtube.com/watch?v=-OQv3GH1Uss&amp;t=0s" target="_blank" rel="noopener"><span class="cn">1</span><span class="ct"><b>Úvod</b><small>od 0:00</small></span></a><a class="ch" href="https://www.youtube.com/watch?v=-OQv3GH1Uss&amp;t=409s" target="_blank" rel="noopener"><span class="cn">2</span><span class="ct"><b>Jacob Marley</b><small>od 6:49</small></span></a><a class="ch" href="https://www.youtube.com/watch?v=-OQv3GH1Uss&amp;t=668s" target="_blank" rel="noopener"><span class="cn">3</span><span class="ct"><b>Duch minulých Vánoc</b><small>od 11:08</small></span></a><a class="ch" href="https://www.youtube.com/watch?v=-OQv3GH1Uss&amp;t=1260s" target="_blank" rel="noopener"><span class="cn">4</span><span class="ct"><b>Duch současných Vánoc</b><small>od 21:00</small></span></a><a class="ch" href="https://www.youtube.com/watch?v=-OQv3GH1Uss&amp;t=1924s" target="_blank" rel="noopener"><span class="cn">5</span><span class="ct"><b>Duch budoucích Vánoc</b><small>od 32:04</small></span></a><a class="ch" href="https://www.youtube.com/watch?v=-OQv3GH1Uss&amp;t=2697s" target="_blank" rel="noopener"><span class="cn">6</span><span class="ct"><b>Závěr</b><small>od 44:57</small></span></a></div>
+</section>
 </header>
 
 </main>
@@ -202,8 +286,8 @@ const T=[
 {a:'J',m:5,r:'app',t:'Kdo je kdo?',q:'Přiřaď jména postav k jejich popisům: Ebenezer Scrooge, Jacob Marley, Bob Cratchit, Malý Tim a synovec Fred.'},
 {a:"L",m:5,r:"app",au:3,u:"https://learningapps.org/watch?v=p0bk6504j23",bl:"Poskládat úryvek",t:"Návštěva z minulosti",q:"Scroogeův společník Jacob Marley je už sedm let mrtvý. Přesto se jednoho večera Scrooge dočká nečekané návštěvy. Úryvek z knihy se ale rozsypal. Poskládej ho ve správném pořadí a zjisti, co se stalo."},
 {a:'J',m:5,r:'pdf',t:'Lakomý, skoupý, držgrešle',q:'Najdi co nejvíc slov, kterými se dá říct, že je někdo lakomý. Která z nich jsou spisovná a která hovorová?'},
-{a:'S',m:15,r:'pdf',t:'Kdo je Ebenezer Scrooge?',q:'Napiš charakteristiku Scrooge, jak ho poznáváme na začátku příběhu. Nezapomeň na vnější i vnitřní vlastnosti.'},
-{a:'L',m:5,r:'app',t:'Štědrý večer v kanceláři',q:'Krátký kvíz k první kapitole. Kdo přišel Scrooge pozvat na večeři a jak mu Scrooge odpověděl?'},
+{"a": "T", "m": 15, "r": "none", "au": 4, "t": "Troje dveře", "q": "Marley varoval Scrooge, že ho navštíví tři duchové. Představ si, že stojíš před třemi dveřmi. Vyber si jedny a vymysli, co by duch za nimi Scroogeovi ukázal a co by si díky tomu mohl uvědomit.", "doors": [["Duch minulých Vánoc", "#8a4a5c"], ["Duch současných Vánoc", "#3d6a8f"], ["Duch budoucích Vánoc", "#4a4858"]]},
+{"a": "J", "m": 15, "r": "none", "au": 4, "t": "Návštěva Ducha minulých Vánoc", "q": "Přečti si úryvek. Schovalo se v něm pět pravopisných chyb. Klikni na slovo, ve kterém je podle tebe chyba, a napiš ho správně.", "proofTitle": "Duch minulých Vánoc", "proof": "Scrooge ležel v posteli a přemýšlel nad varováním svého bývalého společníka Jacoba Marleyho, který mu předpověděl, že ho navštíví tři duchové. Vtom se v pokoji rozsvítilo a závěsy u Scroogeovy postele se rozhrnuli. Scrooge se posadil a spatřil podivného návštěvníka. Byl malý jako dítě a měl bílé vlasi jako stařec, ale v obličeji neměl jedinou vrásku. Z temene mu vycházelo jasné světlo. Scrooge se zeptal, jestli je to duch, kterého očekával. „Jsem Duch minulých Vánoc. Ukážu ti, jaké byly tvoje vánoce, když jsi byl malý,“ odpověděl návštěvník. Pak ho duch jemně uchopil za paži a společně prošli zdí. Ocitli se na zasněžené cestě mezi poli a Scrooge hned poznal kraj, kde vyrůstal. Cesta je zavedla ke staré škole. Duch mu řekl, že uvnitř zůstal chlapec, na kterého jeho kamarádi zapoměli. Prošli chodbou do ponuré učebny s řadami prázdných lavic. U dohasínajícího ohně seděl osamělí chlapec a četl si. Scrooge se posadil na lavici a rozplakal se. V osamělém chlapci poznal sám sebe.", "hint": "<b>Na co se zaměřit:</b><ul><li>shoda přísudku s podmětem</li><li>koncovky podstatných a přídavných jmen</li><li>velká písmena v názvech svátků</li><li>psaní skupiny mě/mně</li></ul>", "errors": {"rozhrnuli": ["rozhrnuly", "Shoda přísudku s podmětem: podmět „závěsy“ je rodu mužského neživotného, proto píšeme -y."], "vlasi": ["vlasy", "Slovo „vlas“ skloňujeme podle vzoru hrad, v 1. pádě množného čísla má koncovku -y."], "vánoce": ["Vánoce", "Vánoce jsou název svátku, proto je píšeme s velkým písmenem."], "zapoměli": ["zapomněli", "Sloveso zapomenout má v kořeni -mn-, proto píšeme zapomněli."], "osamělí": ["osamělý", "Přídavné jméno „osamělý“ se řídí vzorem mladý. U chlapce (1. pád jednotného čísla rodu mužského) má koncovku -ý."]}},
 {a:'J',m:5,r:'pdf',t:'„Nesmysl!“ řekl Scrooge',q:'Přepiš rozhovor Scrooge se synovcem a doplň správně interpunkci v přímé řeči.'},
 {a:'S',m:15,r:'pdf',t:'Dopis malému Ebenezerovi',q:'Duch minulých Vánoc ukáže Scroogeovi, jak o Vánocích sedí jako chlapec sám ve škole. Napiš malému Ebenezerovi dopis.'},
 {a:'L',m:15,r:'pdf',t:'Fezziwig, nebo Scrooge?',q:'Porovnej starého Fezziwiga a Scrooge jako zaměstnavatele. V čem se liší a v čem jsou si podobní? Vyplň Vennův diagram.'},
@@ -219,9 +303,9 @@ const T=[
 {a:"S",m:15,r:"pdf",au:5,t:"Co je smyslem Vánoc?",q:"Scrooge si myslel, že nejdůležitější jsou peníze. Za jedinou noc ale zjistil, že se mýlil. A co si myslíte vy? S pomocí filtrační nálevky přefiltrujte své nápady, až zůstane jen to nejdůležitější."},
 {a:'L',m:15,r:'pdf',t:'Hrob bez jména',q:'Proč na Scrooge tolik zapůsobí opuštěný hrob? Proberte to ve dvojicích a zapište tři myšlenky.'},
 {a:"R",m:5,r:"none",au:0,ghosts:true,t:"Předvánoční zastavení",q:"Kdybys měl(a) možnost podívat se na svůj letošní rok očima duchů Vánoc, co bys udělal(a) jinak? Zastav se na chvíli a zamysli se."},
-{a:'J',m:5,r:'pdf',t:'Kup toho krocana!',q:'Scrooge z okna posílá chlapce pro největšího krocana. Napiš jeho pokyny v rozkazovacím způsobu.'},
+{"a": "T", "m": 15, "r": "none", "au": 4, "t": "Scroogeova proměna", "q": "Pomocí otázek v diamantu zachyť, jaký byl Scrooge na začátku a na konci příběhu a co ho přimělo ke změně.", "diamond":[["podstatné jméno","","Scrooge",1],["2 přídavná jména","Jaký byl Scrooge na začátku příběhu?","",2],["3 slovesa","Co Scrooge dělal na začátku příběhu?","",3],["věta","Co ho přimělo ke změně?","",1],["3 slovesa","Co Scrooge dělal na konci příběhu?","",3],["2 přídavná jména","Jaký byl Scrooge na konci příběhu?","",2],["1 podstatné jméno","Kým se stal na konci?","",1]]},
 {a:"T",m:5,r:"none",au:3,t:"Akrostich KOLEDA",acro:"KOLEDA",q:"Ke každému písmenu slova KOLEDA vymysli slovo nebo celou větu, která souvisí s příběhem o Scroogeovi. Můžeš psát rovnou sem, nebo do sešitu."},
-{a:'S',m:15,r:'pdf',t:'Proměna ve čtyřech obrázcích',q:'Nakresli komiks o čtyřech okénkách: Scrooge na začátku, s duchy, po probuzení a o rok později.'},
+{"a": "L", "m": 15, "r": "none", "au": 4, "t": "Kdo napsal Vánoční koledu?", "q": "Kdo vlastně byl muž, který Vánoční koledu napsal? Přečti si text a u každé otázky vyber ANO, nebo NE.", "photo": "materialy/23-charles|materialy/23-Charles", "text": ["Charles Dickens byl anglický spisovatel a novinář. Narodil se roku 1812 jako druhé z osmi dětí. Jeho otec John pracoval jako úředník britského námořnictva.", "Charles rád četl a chodil do školy. Když mu bylo dvanáct, jeho otec se kvůli dluhům dostal do vězení. Matka a mladší sourozenci tam nějakou dobu bydleli s ním. Charles v té době pracoval v továrně na leštidlo na boty. Celé hodiny lepil etikety na nádobky a večer se vracel do pronajatého pokoje, kde bydlel sám. Když se otec díky dědictví dostal z vězení, Charles ještě nějakou dobu pracoval v továrně a pak se vrátil do školy.", "O práci v továrně Dickens dlouho nemluvil. Později ale tuto zkušenost využil v románu David Copperfield, jehož hlavní hrdina také musel pracovat už jako dítě.", "V dospělosti pracoval jako reportér a později se proslavil jako spisovatel. Na svou práci v továrně vzpomínal i po letech. Ve svých knihách často psal o tom, jak těžké je vyrůstat v chudobě. V roce 1843 napsal Vánoční koledu."], "yn": [["Bydlel Charles v době, kdy pracoval v továrně, se svými mladšími sourozenci?", 0, "Sourozenci bydleli s otcem ve vězení, Charles bydlel sám v pronajatém pokoji."], ["Přestal Charles pracovat v továrně hned po otcově návratu z vězení?", 0, "Charles v továrně ještě nějakou dobu pracoval a teprve pak se vrátil do školy."], ["Využil Dickens v románu David Copperfield zkušenost z vlastního dětství?", 1, "Hlavní hrdina románu musel také pracovat už jako dítě."], ["Vrátil se Charles do školy dřív, než začal pracovat jako reportér?", 1, "Do školy se vrátil po práci v továrně, reportérem byl až v dospělosti."]], "bonus": "Znáš ještě nějakou knihu Charlese Dickense kromě Vánoční koledy a Davida Copperfielda?"},
 {a:"R",m:5,r:"none",au:3,t:"Vzkaz od Scrooge",letter:"Během jediné noci jsem pochopil víc než za celý svůj dosavadní život. Uvědomil jsem si, že to nejcennější v životě nejsou peníze ani majetek, ale lidé kolem nás, laskavost a radost, kterou můžeme rozdávat druhým. A že nikdy není pozdě něco změnit.\n\nVánoce nejsou jen o jednom dni v roce. Jejich kouzlo můžeme nosit v sobě každý den – třeba v podobě drobných gest, milých slov nebo obyčejné ochoty někomu pomoci.",box:true,q:"Jakou jednu maličkost můžeš udělat i ty, aby Vánoce nekončily Štědrým dnem a jejich kouzlo zůstalo po celý rok?"}
 ];
 T.forEach((x,i)=>{x.d=i+1;if(x.au===undefined)x.au=i%6;x.g=Math.floor(i/8);x.u=x.u||(x.r==='pdf'?'materialy/'+String(i+1).padStart(2,'0')+'.pdf':'')});
@@ -276,11 +360,147 @@ function openTask(d){
   const ghosts=x.ghosts?`<div class="ghosts">${[['Duch minulých Vánoc','Na co z letošního roku rád(a) vzpomínáš?','#8a4a5c'],['Duch současných Vánoc','Co tě dělá šťastným/šťastnou právě teď?','#3d6a8f'],['Duch budoucích Vánoc','Co bys příště udělal(a) jinak?','#4a4858']].map(([h,t,c])=>`<div class="ghost" style="--gc:${c}"><b>${h}</b><span>${t}</span></div>`).join('')}</div>`:'';
   let acro='';if(x.acro){let saved={};try{saved=JSON.parse(localStorage.getItem('koleda26-acro')||'{}')}catch(e){}
     acro=`<div class="acro">${[...x.acro].map((ch,k)=>`<label class="arow"><span class="al">${ch}</span><input data-k="${k}" value="${(saved[k]||'').replace(/"/g,'&quot;')}" placeholder="slovo nebo věta…" aria-label="Písmeno ${ch}"></label>`).join('')}</div><div class="acts"><button class="btn gold" id="acroDone">Hotovo</button></div><div class="acro-msg" id="acroMsg" role="status"></div><div id="acroOut"></div>`}
-  show(`<div class="mhead"><span class="num">${x.d}</span><div><span class="eb">${x.d}. prosince</span><h2 id="mt">${x.t}</h2></div></div>${x.letter?`<div class="letter"><p>${x.letter}</p><p class="sig">Ebenezer Scrooge</p></div>`:''}${x.box?`<div class="ask"><b>A teď ještě něco pro tebe</b><p class="task">${x.q}</p></div>`:`<p class="task">${x.q}</p>`}${steps}${ghosts}${acro}${acts?`<div class="acts">${acts}</div>`:''}
+  show(`<div class="mhead"><span class="num">${x.d}</span><div><span class="eb">${x.d}. prosince</span><h2 id="mt">${x.t}</h2></div></div>${x.letter?`<div class="letter"><p>${x.letter}</p><p class="sig">Ebenezer Scrooge</p></div>`:''}${x.box?`<div class="ask"><b>A teď ještě něco pro tebe</b><p class="task">${x.q}</p></div>`:`<p class="task">${x.q}</p>`}${steps}${ghosts}${acro}${specialHTML(x)}${acts?`<div class="acts">${acts}</div>`:''}
   <div class="by">Úkol připravila <button class="lnk" data-au="${x.au}">${a.n}</button></div>`,'hh');
   document.querySelectorAll('.acro input').forEach(inp=>inp.addEventListener('input',()=>{const o={};document.querySelectorAll('.acro input').forEach(i=>o[i.dataset.k]=i.value);try{localStorage.setItem('koleda26-acro',JSON.stringify(o))}catch(e){}}));
   if(x.acro)acroSetup(x.acro);
+  specialSetup(x);
 }
+/* ===== interaktivní aktivity: 4 dveře, 5 korektura, 21 diamant, 23 ano/ne ===== */
+const escH=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+function wrapLines(g,t,max){const w=t.split(/\s+/),out=[];let l='';w.forEach(x=>{const tt=l?l+' '+x:x;if(g.measureText(tt).width>max&&l){out.push(l);l=x}else l=tt});if(l)out.push(l);return out}
+function cardPng(title,lines,center,file){
+  const W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');
+  const bg=g.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#0f1429');bg.addColorStop(1,'#2b3560');g.fillStyle=bg;g.fillRect(0,0,W,H);
+  g.fillStyle='rgba(255,255,255,.35)';for(let i=0;i<140;i++){g.beginPath();g.arc((i*137)%W,(i*263)%H,1+(i%3),0,7);g.fill()}
+  g.fillStyle='#ffd27a';g.font='700 38px "Hanken Grotesk", sans-serif';g.fillText('Adventní kalendář · Vánoční koleda',90,130);
+  g.fillStyle='#fff';g.font='800 76px "Playfair Display", Georgia, serif';const tl=wrapLines(g,title,900);tl.forEach((l,k)=>g.fillText(l,90,225+k*84));
+  let y=225+(tl.length-1)*84+(center?150:130);
+  lines.forEach(([tag,t])=>{
+    if(center){g.textAlign='center';g.fillStyle='#f4efe6';g.font='600 42px "Hanken Grotesk", sans-serif';
+      wrapLines(g,t,880).forEach(l=>{g.fillText(l,W/2,y);y+=52});
+      if(tag){g.fillStyle='#ffd27a';g.font='600 24px "Hanken Grotesk", sans-serif';g.fillText(tag,W/2,y-8);}
+      y+=46;g.textAlign='left';
+    }else{g.fillStyle='#ffd27a';g.font='700 28px "Hanken Grotesk", sans-serif';g.fillText(tag,90,y);y+=50;
+      g.fillStyle='#f4efe6';g.font='600 40px "Hanken Grotesk", sans-serif';wrapLines(g,t,900).forEach(l=>{g.fillText(l,90,y);y+=52});y+=40}
+  });
+  c.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=file;document.body.appendChild(a);a.click();a.remove()});
+}
+function showResult(box,title,lines,center,file,note){
+  box.innerHTML=`<div class="acro-card${center?' ctr':''}"><b>${escH(title)}</b>${lines.map(([tag,t])=>`<div class="rl">${tag?`<small>${escH(tag)}</small>`:''}<span>${escH(t)}</span></div>`).join('')}</div>
+  <p class="acro-note">${note||'Hotovo! Ukaž svou práci paní učitelce nebo panu učiteli. Můžeš si ji stáhnout jako obrázek, nebo zkopírovat a poslat.'}</p>
+  <div class="acts"><button class="btn dark rPng">Stáhnout obrázek</button><button class="btn light rCopy">Zkopírovat text</button></div>`;
+  box.querySelector('.rPng').addEventListener('click',()=>cardPng(title,lines,center,file));
+  box.querySelector('.rCopy').addEventListener('click',async()=>{const t=title+'\n'+lines.map(([tag,t])=>(tag?tag+': ':'')+t).join('\n');try{await navigator.clipboard.writeText(t);toast('Zkopírováno.')}catch(e){toast('Kopírování se nepovedlo, označ text ručně.')}});
+  box.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function save(k,v){try{localStorage.setItem('koleda26-'+k,JSON.stringify(v))}catch(e){}}
+function load(k){try{return JSON.parse(localStorage.getItem('koleda26-'+k)||'null')}catch(e){return null}}
+
+/* --- 23: ANO/NE --- */
+function ynHTML(x){
+  return `<div class="read">${x.photo?`<figure class="pf"><img data-alts="${x.photo}" alt="Charles Dickens"></figure>`:''}${x.text.map(p=>`<p>${p}</p>`).join('')}</div>
+  <h3 class="th">Ano, nebo ne?</h3><ol class="yn">${x.yn.map(([q],k)=>`<li><span>${q}</span><div class="ynb" data-k="${k}"><button data-v="1">ANO</button><button data-v="0">NE</button></div><div class="yne" id="yne${k}"></div></li>`).join('')}</ol>
+  <div class="acts"><button class="btn gold" id="ynCheck">Vyhodnotit</button></div><div class="acro-msg" id="ynMsg" role="status"></div>
+  <div class="ask" style="margin-top:16px"><b>Bonusová otázka</b><p class="task">${x.bonus}</p></div>`;
+}
+function ynSetup(x){
+  const img=document.querySelector('.pf img');
+  if(img){const alts=[];img.dataset.alts.split('|').forEach(b=>['.jpg','.jpeg','.png','.JPG','.JPEG','.PNG'].forEach(e=>alts.push(b+e)));let k=0;
+    img.addEventListener('error',()=>{k++;if(k<alts.length)img.src=alts[k];else img.closest('figure').remove()});img.src=alts[0]}
+  const ans={};
+  document.querySelectorAll('.ynb').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||g.classList.contains('done'))return;
+    g.querySelectorAll('button').forEach(z=>z.classList.toggle('on',z===b));ans[g.dataset.k]=+b.dataset.v}));
+  $('ynCheck').addEventListener('click',()=>{
+    if(Object.keys(ans).length<x.yn.length){$('ynMsg').textContent='Odpověz ještě na všechny otázky.';return}
+    let ok=0;x.yn.forEach(([q,a,why],k)=>{const g=document.querySelector(`.ynb[data-k="${k}"]`),good=ans[k]===a;if(good)ok++;g.classList.add('done');
+      g.querySelectorAll('button').forEach(b=>{if(+b.dataset.v===a)b.classList.add('ok');else if(b.classList.contains('on'))b.classList.add('bad')});
+      $('yne'+k).innerHTML=`<b>${good?'Správně!':'Tentokrát ne.'}</b> ${why}`});
+    $('ynMsg').textContent=`Správně máš ${ok} ze ${x.yn.length}.`;$('ynMsg').style.color=ok===x.yn.length?'#1f8a5a':'#b4532a';$('ynCheck').remove();
+  });
+}
+
+/* --- 21: diamant --- */
+function diaHTML(x){
+  const v=load('dia2')||{};
+  return `<div class="dia">${x.diamond.map(([lab,hint,fixed,n],k)=>`<div class="drow" style="--w:${[38,64,92,100,92,64,38][k]}%"><small>${lab}<i>${hint}</i></small>${fixed?`<span class="dfix">${fixed}</span>`:`<div class="dins">${Array.from({length:n},(_,m)=>`<input data-k="${k}" data-m="${m}" value="${escH(v[k+'_'+m]||'')}" placeholder="${k===3?'napiš celou větu…':n===1?'podstatné jméno':m+1+'.'}" aria-label="${lab} ${m+1}">`).join('')}</div>`}</div>`).join('')}</div>
+  <div class="acts"><button class="btn gold" id="diaDone">Hotovo</button></div><div class="acro-msg" id="diaMsg" role="status"></div><div id="diaOut"></div>`;
+}
+function diaSetup(x){
+  const ins=[...document.querySelectorAll('.dia input')];
+  ins.forEach(i=>i.addEventListener('input',()=>{const o={};ins.forEach(z=>o[z.dataset.k+'_'+z.dataset.m]=z.value);save('dia2',o)}));
+  $('diaDone').addEventListener('click',()=>{
+    let empty=0;ins.forEach(i=>{const m=!i.value.trim();i.classList.toggle('miss',m);if(m)empty++});
+    if(empty){$('diaMsg').textContent=`Ještě ti ${empty===1?'chybí jedno políčko':'chybí '+empty+(empty<5?' políčka':' políček')}.`;return}
+    $('diaMsg').textContent='';
+    const lines=x.diamond.map(([lab,hint,fixed],k)=>['',fixed||ins.filter(z=>+z.dataset.k===k).map(z=>z.value.trim()).join(', ')]);
+    showResult($('diaOut'),'Můj diamant: Scroogeova proměna',lines,true,'diamant-scrooge.png');
+  });
+}
+
+/* --- 4: troje dveře --- */
+function doorHTML(x){
+  const v=load('doors')||{};
+  return `<p class="dtip" id="dTip"${v.k!=null?' hidden':''}><span aria-hidden="true">👆</span> Klikni na dveře, které chceš otevřít.</p><div class="doors${v.k==null?' pulse':''}">${x.doors.map(([n,c],k)=>`<button class="door2${v.k==k?' sel':''}" data-k="${k}" style="--dc:${c}"><span class="dv"><span class="knob"></span><span class="dk">Otevřít</span></span><b>${n}</b></button>`).join('')}</div>
+  <div class="dfields${v.k!=null?' on':''}" id="dFields">
+   <p class="dchosen" id="dChosen">${v.k!=null?'Otevřel(a) jsi dveře: '+x.doors[v.k][0]:''}</p>
+   <label class="dl">Duch by Scroogeovi ukázal…<textarea id="dA" rows="3">${escH(v.a||'')}</textarea></label>
+   <label class="dl">Scrooge by si díky tomu mohl uvědomit, že…<textarea id="dB" rows="3">${escH(v.b||'')}</textarea></label>
+   <div class="acts"><button class="btn gold" id="doorDone">Hotovo</button></div><div class="acro-msg" id="doorMsg" role="status"></div>
+  </div><div id="doorOut"></div>`;
+}
+function doorSetup(x){
+  let st=load('doors')||{};const sv=()=>{st.a=$('dA').value;st.b=$('dB').value;save('doors',st)};
+  document.querySelectorAll('.door2').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.door2').forEach(z=>z.classList.toggle('sel',z===b));st.k=+b.dataset.k;sv();$('dTip').hidden=true;document.querySelector('.doors').classList.remove('pulse');
+    $('dChosen').textContent='Otevřel(a) jsi dveře: '+x.doors[st.k][0];$('dFields').classList.add('on');$('dA').focus()}));
+  $('dA').addEventListener('input',sv);$('dB').addEventListener('input',sv);
+  $('doorDone').addEventListener('click',()=>{
+    if(!$('dA').value.trim()||!$('dB').value.trim()){$('doorMsg').textContent='Doplň ještě obě věty.';return}
+    $('doorMsg').textContent='';
+    showResult($('doorOut'),'Troje dveře: '+x.doors[st.k][0],[['Duch by Scroogeovi ukázal',$('dA').value.trim()],['Scrooge by si díky tomu mohl uvědomit, že',$('dB').value.trim()]],false,'troje-dvere.png');
+  });
+}
+
+/* --- 5: korektura --- */
+function proofHTML(x){
+  let i=0;const html=x.proof.split(/(\p{L}+)/u).map(t=>/^\p{L}+$/u.test(t)?`<span class="pw" data-i="${i++}" data-w="${t}">${t}</span>`:t.replace(/\n/g,'<br>')).join('');
+  return `<div class="proof"><b class="ptit">${x.proofTitle}</b><p>${html}</p></div>
+  <div class="hints"><button class="btn light" id="hint1"><span aria-hidden="true">💡</span> Nápověda</button><button class="btn light" id="hint2" hidden><span aria-hidden="true">🔍</span> Ukázat chybná slova</button></div>
+  <div class="hintbox" id="hintBox" hidden></div>
+  <h3 class="th">Moje opravy <small id="pCount">(0 z 5)</small></h3><div id="pList" class="plist"><p class="pempty">Klikni v textu na slovo, ve kterém je podle tebe chyba.</p></div>
+  <div class="acts"><button class="btn gold" id="pCheck">Zkontrolovat</button></div><div class="acro-msg" id="pMsg" role="status"></div><div id="pOut"></div>`;
+}
+function proofSetup(x){
+  const sel=new Map();const errIdx={};
+  document.querySelectorAll('.pw').forEach(s=>{if(x.errors[s.dataset.w])errIdx[s.dataset.i]=s.dataset.w});
+  const draw=()=>{const L=$('pList');$('pCount').textContent=`(${sel.size} z 5)`;
+    if(!sel.size){L.innerHTML='<p class="pempty">Klikni v textu na slovo, ve kterém je podle tebe chyba.</p>';return}
+    L.innerHTML=[...sel.entries()].map(([i,v])=>`<label class="prow"><s>${document.querySelector(`.pw[data-i="${i}"]`).dataset.w}</s><span aria-hidden="true">→</span><input data-i="${i}" value="${escH(v)}" placeholder="napiš správně"><button class="px" data-i="${i}" aria-label="Odebrat">×</button></label>`).join('');
+    L.querySelectorAll('input').forEach(n=>n.addEventListener('input',()=>sel.set(n.dataset.i,n.value)));
+    L.querySelectorAll('.px').forEach(b=>b.addEventListener('click',()=>{sel.delete(b.dataset.i);document.querySelector(`.pw[data-i="${b.dataset.i}"]`).classList.remove('on');draw()}));
+  };
+  document.querySelector('.proof').addEventListener('click',e=>{const s=e.target.closest('.pw');if(!s||$('pCheck')===null)return;const i=s.dataset.i;
+    if(sel.has(i)){sel.delete(i);s.classList.remove('on')}else{if(sel.size>=5){toast('Chyb je jen pět. Nejdřív nějaké slovo odeber.');return}sel.set(i,'');s.classList.add('on')}
+    draw();const n=document.querySelector(`.prow input[data-i="${i}"]`);if(n)n.focus()});
+  $('hint1').addEventListener('click',()=>{$('hintBox').hidden=false;$('hintBox').innerHTML=x.hint;$('hint1').hidden=true;$('hint2').hidden=false});
+  $('hint2').addEventListener('click',()=>{document.querySelectorAll('.pw').forEach(s=>{if(errIdx[s.dataset.i])s.classList.add('hl')});$('hint2').hidden=true;toast('Chybná slova jsou podtržená. Klikni na ně a oprav je.')});
+  $('pCheck').addEventListener('click',()=>{
+    if(!sel.size){$('pMsg').textContent='Nejdřív označ v textu slova s chybou.';return}
+    let found=0,fixed=0;const rows=[];
+    sel.forEach((v,i)=>{const w=document.querySelector(`.pw[data-i="${i}"]`).dataset.w,e=x.errors[w];
+      if(e){found++;const good=e[0]==='Vánoce'?v.trim()===e[0]:v.trim().toLowerCase()===e[0].toLowerCase();if(good)fixed++;
+        rows.push(`<li class="${good?'g':'h'}"><b>${w} → ${e[0]}</b> ${good?'Správně opraveno!':'Chybu jsi našel/našla, ale oprava není správně.'}<br><span>${e[1]}</span></li>`)}
+      else rows.push(`<li class="n"><b>${w}</b> Tohle slovo je napsané správně.</li>`)});
+    Object.entries(x.errors).forEach(([w,e])=>{if(![...sel.keys()].some(i=>document.querySelector(`.pw[data-i="${i}"]`).dataset.w===w))rows.push(`<li class="m"><b>${w} → ${e[0]}</b> Tuhle chybu jsi přehlédl/a.<br><span>${e[1]}</span></li>`)});
+    document.querySelectorAll('.pw').forEach(s=>{if(errIdx[s.dataset.i])s.classList.add('err')});
+    $('pMsg').textContent=`Našel/našla jsi ${found} z 5 chyb a správně opravil/a ${fixed}.`;$('pMsg').style.color=fixed===5?'#1f8a5a':'#b4532a';
+    $('pOut').innerHTML=`<h3 class="th">Řešení</h3><ul class="psol">${rows.join('')}</ul>`;
+    document.querySelectorAll('.prow input,.px').forEach(n=>n.disabled=true);$('pCheck').remove();$('pOut').scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+}
+function specialHTML(x){return x.yn?ynHTML(x):x.diamond?diaHTML(x):x.doors?doorHTML(x):x.proof?proofHTML(x):''}
+function specialSetup(x){if(x.yn)ynSetup(x);if(x.diamond)diaSetup(x);if(x.doors)doorSetup(x);if(x.proof)proofSetup(x)}
 const FIRST={A:'AÁ',E:'EÉĚ',O:'OÓ',D:'DĎ',I:'IÍ',U:'UÚŮ',C:'CČ',R:'RŘ',S:'SŠ',T:'TŤ',Z:'ZŽ',N:'NŇ',Y:'YÝ'};
 function acroSetup(word){
   const done=$('acroDone');if(!done)return;
@@ -329,6 +549,7 @@ function openTeachers(){
    <li>Od 1. prosince se každý den ráno rozsvítí jedno nové okno. Dopředu se otevřít nedá, už otevřená okna zůstávají dostupná.</li>
    <li>V okně najdete krátké zadání a podle typu úkolu odkaz na pracovní list v PDF nebo na online aktivitu.</li>
    <li>Pracovní listy můžete promítnout na tabuli, nebo vytisknout.</li>
+   <li>Pod domy najdete <b>audioknihu rozdělenou na části</b> (úvod, Jacob Marley, tři duchové a závěr). Kliknutím se spustí rovnou od vybrané části, takže si ji můžete pouštět ve třídě postupně.</li>
    <li>Online aktivity fungují v prohlížeči bez přihlašování, na počítači, tabletu, mobilu i interaktivní tabuli.</li>
   </ul>
   <h3 class="th">Tipy pro práci ve třídě</h3>
