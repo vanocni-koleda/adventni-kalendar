@@ -79,6 +79,23 @@ footer a{color:var(--mute)}
 .tag.t{color:#fff}
 .x{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:0;background:#eef0f6;font-size:24px;cursor:pointer;color:var(--cink)}
 .task{font-size:17px;margin:0;white-space:pre-line}
+.card{--pad:clamp(22px,4vw,34px);padding:var(--pad)}
+.mhead{margin:calc(-1*var(--pad)) calc(-1*var(--pad)) 22px;padding:calc(var(--pad) + 4px) calc(var(--pad) + 44px) 22px var(--pad);display:flex;gap:16px;align-items:center;color:#f4efe6;
+background:radial-gradient(circle,#ffffff4d 0 1px,transparent 1.6px) 0 0/38px 44px,radial-gradient(circle,#ffffff33 0 1px,transparent 1.6px) 19px 22px/38px 44px,linear-gradient(135deg,#141a33,#2b3560)}
+.mhead .num{flex:none;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,#fff1c2,#ffd27a 55%,#f0a23e);color:#2a1a06;font:800 24px/1 "Hanken Grotesk",sans-serif;box-shadow:0 0 0 4px #e8dcc2,0 0 26px #ffd27a99}
+.mhead .eb{display:block;color:#ffd27a;font-weight:700;font-size:14px}
+.card .mhead h2{color:#fff;margin:2px 0 0;padding:0;font-size:clamp(24px,4vw,32px)}
+.card.hh .x{background:#ffffff26;color:#fff}
+.ghosts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px}
+.ghost{border-radius:14px;padding:14px;background:#f5f6fa;border-top:5px solid var(--gc);display:flex;flex-direction:column;gap:6px}
+.ghost b{color:var(--gc);font-size:14px}
+.ghost span{font-size:15px;line-height:1.45}
+.acro{display:grid;gap:8px;margin-top:18px}
+.arow{display:grid;grid-template-columns:48px minmax(0,1fr);gap:10px;align-items:center}
+.al{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font:800 26px "Playfair Display",Georgia,serif;color:#2a1a06;background:radial-gradient(circle at 50% 40%,#fff1c2,#ffd27a 60%,#f0a23e);box-shadow:inset 0 0 0 2px #e8dcc2}
+.arow input{font:16px "Hanken Grotesk",sans-serif;min-height:48px;padding:0 14px;border-radius:12px;border:2px solid #d8dbe6;color:#1d1d2b;background:#fff;width:100%}
+.arow input:focus{outline:none;border-color:#f0a23e}
+@media(max-width:600px){.ghosts{grid-template-columns:minmax(0,1fr)}}
 .letter{position:relative;margin:4px 0 18px;padding:26px 28px 20px;border-radius:4px;transform:rotate(-.6deg);color:#4a3520;
 background:radial-gradient(ellipse at 15% 20%,#e8d3a3 0,transparent 45%),radial-gradient(ellipse at 85% 90%,#e2c891 0,transparent 40%),linear-gradient(#f7edd3,#efdfb6);
 box-shadow:0 8px 18px #0000002e,inset 0 0 40px #c9a86a55;font:italic 500 18px/1.6 "Playfair Display",Georgia,serif}
@@ -173,9 +190,9 @@ const T=[
 {a:"S",m:15,r:"none",au:1,t:"Scrooge na titulních stranách",q:"Scrooge se po návštěvě tří duchů probudil jako vyměněný člověk. Zpráva o jeho proměně se rychle rozšířila celým Londýnem. Představ si, že o ní informovaly i místní noviny."},
 {a:"S",m:15,r:"pdf",au:5,t:"Co je smyslem Vánoc?",q:"Scrooge si myslel, že nejdůležitější jsou peníze. Za jedinou noc ale zjistil, že se mýlil. A co si myslíte vy? S pomocí filtrační nálevky přefiltrujte své nápady, až zůstane jen to nejdůležitější."},
 {a:'L',m:15,r:'pdf',t:'Hrob bez jména',q:'Proč na Scrooge tolik zapůsobí opuštěný hrob? Proberte to ve dvojicích a zapište tři myšlenky.'},
-{a:"R",m:5,r:"none",au:0,t:"Předvánoční zastavení",q:"Kdybys měl(a) možnost podívat se na svůj letošní rok očima duchů Vánoc, co bys udělal(a) jinak? Zastav se na chvíli a zamysli se."},
+{a:"R",m:5,r:"none",au:0,ghosts:true,t:"Předvánoční zastavení",q:"Kdybys měl(a) možnost podívat se na svůj letošní rok očima duchů Vánoc, co bys udělal(a) jinak? Zastav se na chvíli a zamysli se."},
 {a:'J',m:5,r:'pdf',t:'Kup toho krocana!',q:'Scrooge z okna posílá chlapce pro největšího krocana. Napiš jeho pokyny v rozkazovacím způsobu.'},
-{a:"T",m:5,r:"none",au:3,t:"Akrostich KOLEDA",q:"Napiš pod sebe písmena K, O, L, E, D, A. Ke každému vymysli slovo nebo celou větu, která souvisí s příběhem o Scroogeovi."},
+{a:"T",m:5,r:"none",au:3,t:"Akrostich KOLEDA",acro:"KOLEDA",q:"Ke každému písmenu slova KOLEDA vymysli slovo nebo celou větu, která souvisí s příběhem o Scroogeovi. Můžeš psát rovnou sem, nebo do sešitu."},
 {a:'S',m:15,r:'pdf',t:'Proměna ve čtyřech obrázcích',q:'Nakresli komiks o čtyřech okénkách: Scrooge na začátku, s duchy, po probuzení a o rok později.'},
 {a:"R",m:5,r:"none",au:3,t:"Vzkaz od Scrooge",letter:"Během jediné noci jsem pochopil víc než za celý svůj dosavadní život. Uvědomil jsem si, že to nejcennější v životě nejsou peníze ani majetek, ale lidé kolem nás, laskavost a radost, kterou můžeme rozdávat druhým. A že nikdy není pozdě něco změnit.\n\nVánoce nejsou jen o jednom dni v roce. Jejich kouzlo můžeme nosit v sobě každý den – třeba v podobě drobných gest, milých slov nebo obyčejné ochoty někomu pomoci.",box:true,q:"Jakou jednu maličkost můžeš udělat i ty, aby Vánoce nekončily Štědrým dnem a jejich kouzlo zůstalo po celý rok?"}
 ];
@@ -220,14 +237,18 @@ function render(){
 }
 function scrollToToday(){const td=todayNum();if(!td)return;const f=$('h'+Math.floor((td-1)/8));const s=$('street');if(s.scrollWidth>s.clientWidth)s.scrollLeft=f.offsetLeft-s.offsetLeft-16}
 
-function show(html){$('card').innerHTML=`<button class="x" id="x" aria-label="Zavřít">×</button>`+html;$('ov').classList.add('on');$('x').focus()}
+function show(html,cls){$('card').className='card'+(cls?' '+cls:'');$('card').innerHTML=`<button class="x" id="x" aria-label="Zavřít">×</button>`+html;$('ov').classList.add('on');$('x').focus()}
 function close(){$('ov').classList.remove('on')}
 function openTask(d){
   const x=T[d-1],a=AUTHORS[x.au];
   const lnk=(l,u)=>`<a class="btn dark" data-u="${u}" href="${u||'#'}" target="_blank" rel="noopener">${l}</a>`;
   const acts=(x.extra||[]).map(([l,u])=>lnk(l,u).replace('btn dark','btn light')).join('')+(x.r==='pdf'?lnk(x.bl||'Otevřít pracovní list',x.u):x.r==='app'?lnk(x.bl||'Otevřít online aplikaci',x.u):'');
-  show(`<h2 id="mt">${x.d}. prosince: ${x.t}</h2>${x.letter?`<div class="letter"><p>${x.letter}</p><p class="sig">Ebenezer Scrooge</p></div>`:''}${x.box?`<div class="ask"><b>A teď ještě něco pro tebe</b><p class="task">${x.q}</p></div>`:`<p class="task">${x.q}</p>`}${acts?`<div class="acts">${acts}</div>`:''}
-  <div class="by">Úkol připravila <button class="lnk" data-au="${x.au}">${a.n}</button></div>`);
+  const ghosts=x.ghosts?`<div class="ghosts">${[['Duch minulých Vánoc','Na co z letošního roku rád(a) vzpomínáš?','#8a4a5c'],['Duch přítomných Vánoc','Co tě dělá šťastným/šťastnou právě teď?','#3d6a8f'],['Duch budoucích Vánoc','Co bys příště udělal(a) jinak?','#4a4858']].map(([h,t,c])=>`<div class="ghost" style="--gc:${c}"><b>${h}</b><span>${t}</span></div>`).join('')}</div>`:'';
+  let acro='';if(x.acro){let saved={};try{saved=JSON.parse(localStorage.getItem('koleda26-acro')||'{}')}catch(e){}
+    acro=`<div class="acro">${[...x.acro].map((ch,k)=>`<label class="arow"><span class="al">${ch}</span><input data-k="${k}" value="${(saved[k]||'').replace(/"/g,'&quot;')}" placeholder="slovo nebo věta…" aria-label="Písmeno ${ch}"></label>`).join('')}</div>`}
+  show(`<div class="mhead"><span class="num">${x.d}</span><div><span class="eb">${x.d}. prosince</span><h2 id="mt">${x.t}</h2></div></div>${x.letter?`<div class="letter"><p>${x.letter}</p><p class="sig">Ebenezer Scrooge</p></div>`:''}${x.box?`<div class="ask"><b>A teď ještě něco pro tebe</b><p class="task">${x.q}</p></div>`:`<p class="task">${x.q}</p>`}${ghosts}${acro}${acts?`<div class="acts">${acts}</div>`:''}
+  <div class="by">Úkol připravila <button class="lnk" data-au="${x.au}">${a.n}</button></div>`,'hh');
+  document.querySelectorAll('.acro input').forEach(inp=>inp.addEventListener('input',()=>{const o={};document.querySelectorAll('.acro input').forEach(i=>o[i.dataset.k]=i.value);try{localStorage.setItem('koleda26-acro',JSON.stringify(o))}catch(e){}}));
 }
 function shuffle(arr){const r=arr.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]]}return r}
 function openAuthors(){
