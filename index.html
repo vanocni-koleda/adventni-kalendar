@@ -94,6 +94,18 @@ background:radial-gradient(circle,#ffffff4d 0 1px,transparent 1.6px) 0 0/38px 44
 .sh b{font:800 20px "Playfair Display",Georgia,serif;color:#1d1d2b}
 .step p{margin:0;font-size:16px;line-height:1.5}
 @media(max-width:600px){.steps{grid-template-columns:minmax(0,1fr)}}
+.topbtns{display:flex;flex-wrap:wrap;gap:10px}
+.th{font:800 20px "Playfair Display",Georgia,serif;margin:22px 0 8px;color:#1d1d2b}
+.tl{margin:0;padding-left:20px;display:grid;gap:8px;font-size:16px;line-height:1.5}
+.pg{margin-top:14px}
+.pg>b{display:block;font:800 17px "Playfair Display",Georgia,serif;color:#8a5a0a;margin-bottom:6px}
+.plan{list-style:none;margin:0;padding:0;border-top:1px solid #e4e6ee}
+.plan li{display:grid;grid-template-columns:62px 30px minmax(0,1fr);gap:8px;padding:8px 10px;border-bottom:1px solid #e4e6ee;font-size:15px;line-height:1.4}
+.plan li.we{background:#f3f4f8}
+.pd{font-weight:700;white-space:nowrap}
+.pw{color:#5b5f73}
+.pt i{color:#8b8fa3}
+.pnote{margin:10px 0 0;font-size:14px;color:#5b5f73}
 .ghosts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px}
 .ghost{border-radius:14px;padding:14px;background:#f5f6fa;border-top:5px solid var(--gc);display:flex;flex-direction:column;gap:6px}
 .ghost b{color:var(--gc);font-size:14px}
@@ -153,7 +165,7 @@ box-shadow:0 8px 18px #0000002e,inset 0 0 40px #c9a86a55;font:italic 500 18px/1.
       <p class="lead">Ebenezer Scrooge je bohatý, ale lakomý a nevrlý obchodník. Na Štědrý večer ho navštíví tři duchové a ukážou mu jeho minulé, přítomné i budoucí Vánoce. Příběh Charlese Dickense vyšel v roce 1843 a dodnes patří k nejznámějším vánočním knihám.</p>
       <p class="lead">Od 1. do 24. prosince se každý den rozsvítí jedno okno. Klikni na něj a objevuj s námi příběh Ebenezera Scrooge.</p>
     </div>
-    <button class="btn ghost" id="openAuthors">Kdo stojí za kalendářem</button>
+    <div class="topbtns"><button class="btn gold" id="openTeachers">Pro učitele</button><button class="btn ghost" id="openAuthors">Kdo stojí za kalendářem</button></div>
   </div>
   <div class="notice" id="notice"></div>
   <div class="street" id="street"></div>
@@ -307,6 +319,30 @@ function acroPng(word,lines){
   c.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='akrostich-koleda.png';document.body.appendChild(a);a.click();a.remove()});
 }
 function shuffle(arr){const r=arr.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]]}return r}
+const PLAN=[[1, "út", "Seznámení se Scroogem: popis postavy"], [2, "st", "Přesvědč Scrooge: argumentace a práce s úvodní ukázkou"], [3, "čt", "Setkání s Jacobem Marleyem: řazení textu"], [4, "pá", "Troje dveře: předvídání děje"], [5, "so", "Setkání s Duchem minulých Vánoc: hledání pravopisných chyb v ukázce a vzkaz malému Scroogeovi"], [6, "ne", "Co si za peníze nekoupíš? Online puzzle a otázka k zamyšlení"], [7, "po", "Najdi někoho, kdo…: aktivita do třídnické hodiny"], [8, "út", "Rozmluvená postavička ducha: digitální tip (Chatterpix)"], [9, "st", "Psaní velkých písmen: pravopisná rychlovka online"], [10, "čt", "Frazémy o penězích, bohatství a chudobě: online kvíz"], [11, "pá", "Metoda ledovce: co se skrývá za Scroogeovým chováním"], [12, "so", "Kdyby duch Vánoc přišel za tebou: kreslení a tvůrčí psaní"], [13, "ne", "Koleda za dveřmi: poslech koledy a zastaralá slova"], [14, "po", "Cituj – kresli – vysvětli: návštěva u Cratchitových, poslech audioknihy"], [15, "út", "Emoční detektiv: přiřazování situací z příběhu k emocím (online)"], [16, "st", "Očím se nedá vždy věřit: co o posledním duchovi opravdu víme a co si jen domýšlíme (online třídění)"], [17, "čt", "Scrooge na titulních stranách: novinová zpráva"], [18, "pá", "Filtrační nálevka: Co je smyslem Vánoc? (skupinová práce)"], [19, "so", "Scroogeův tajný vzkaz: šifra"], [20, "ne", "Předvánoční zastavení: osobní reflexe"], [21, "po", "Scroogeova proměna: báseň diamant"], [22, "út", "Akrostich KOLEDA: tvůrčí psaní"], [23, "st", "Kdo napsal Vánoční koledu? Text o autorovi a porozumění textu"], [24, "čt", "Vzkaz od Scrooge: moudro a přání"]];
+function openTeachers(){
+  const row=([d,w,t])=>`<li class="${w==='so'||w==='ne'?'we':''}"><span class="pd">${d}. 12.</span><span class="pw">${w}</span><span class="pt">${t||'<i>připravujeme</i>'}</span></li>`;
+  show(`<h2 id="mt">Pro učitele</h2>
+  <p class="task">Adventní kalendář provede žáky příběhem Vánoční koledy od Charlese Dickense. Úkoly jdou v pořadí děje, takže žáci nemusí knihu znát předem: potřebné úryvky i audioknihu najdou přímo v úkolech.</p>
+  <h3 class="th">Jak kalendář funguje</h3>
+  <ul class="tl">
+   <li>Od 1. prosince se každý den ráno rozsvítí jedno nové okno. Dopředu se otevřít nedá, už otevřená okna zůstávají dostupná.</li>
+   <li>V okně najdete krátké zadání a podle typu úkolu odkaz na pracovní list v PDF nebo na online aktivitu.</li>
+   <li>Pracovní listy můžete promítnout na tabuli, nebo vytisknout.</li>
+   <li>Online aktivity fungují v prohlížeči bez přihlašování, na počítači, tabletu, mobilu i interaktivní tabuli.</li>
+  </ul>
+  <h3 class="th">Tipy pro práci ve třídě</h3>
+  <ul class="tl">
+   <li><b>Víkendy:</b> okna se otevírají i v sobotu a v neděli. Pošlete žákům odkaz na kalendář (do třídní skupiny, Teams nebo Bakalářů) a víkendové úkoly mohou zvládnout sami doma. Případně je vyřešte společně v pátek, nebo v pondělí.</li>
+   <li><b>Pořadí:</b> úkoly na sebe navazují, proto doporučujeme jít popořadě. Když nějaký den vynecháte, klidně ho doplňte později.</li>
+   <li><b>Čas:</b> některé úkoly jsou krátké rozcvičky na pár minut, jiné zaberou větší část hodiny. Vyberte si podle toho, kolik času máte.</li>
+   <li><b>Konec výuky před Vánoci:</b> pokud vám výuka končí dřív, zadejte zbývající okna jako dobrovolný úkol na prázdniny, nebo se k nim vraťte po Novém roce.</li>
+   <li><b>Po Vánocích:</b> kalendář stojí na celé knize, takže ho můžete využít i při výuce literatury, například když budete probírat realismus nebo Charlese Dickense.</li>
+  </ul>
+  <h3 class="th">Přehled všech 24 dní</h3>
+  ${[[0,8,'Scrooge a Marley'],[8,16,'Duchové Vánoc'],[16,24,'Scroogeova proměna']].map(([a,b,h])=>`<div class="pg"><b>${h}</b><ul class="plan">${PLAN.slice(a,b).map(row).join('')}</ul></div>`).join('')}
+  <p class="pnote">Šedě označené dny připadají na víkend.</p>`);
+}
 function openAuthors(){
   show(`<h2 id="mt">Kdo stojí za kalendářem</h2><p class="task" style="color:#5b5f73">Jsme češtinářky, které rády tvoří materiály pro žáky i pro kolegy.</p>
   <div class="authors">${shuffle(AUTHORS).map(a=>`<div class="au"><div class="av" style="background:${a.c}">${a.i}${a.p?`<img src="${a.p}" alt="${a.n}" class="ph-img">`:''}</div><div><h3>${a.n}</h3>
@@ -331,6 +367,7 @@ $('card').addEventListener('click',e=>{
   if(e.target.closest('[data-demo]'))toast('Odkaz doplníme podle toho, co pošlete.');
 });
 $('openAuthors').addEventListener('click',openAuthors);
+$('openTeachers').addEventListener('click',openTeachers);
 $('ov').addEventListener('click',e=>{if(e.target.id==='ov')close()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 window.addEventListener('hashchange',render);
