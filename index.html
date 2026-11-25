@@ -86,6 +86,14 @@ background:radial-gradient(circle,#ffffff4d 0 1px,transparent 1.6px) 0 0/38px 44
 .mhead .eb{display:block;color:#ffd27a;font-weight:700;font-size:14px}
 .card .mhead h2{color:#fff;margin:2px 0 0;padding:0;font-size:clamp(24px,4vw,32px)}
 .card.hh .x{background:#ffffff26;color:#fff}
+.steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.step{border-radius:16px;padding:16px 18px;background:#fff6dc;border:2px solid #f3dfa6}
+.sh{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.sn{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font:800 16px "Hanken Grotesk",sans-serif;color:#2a1a06;background:radial-gradient(circle at 50% 45%,#fff1c2,#ffd27a 55%,#f0a23e)}
+.si{width:24px;height:24px;color:#8a5a0a}.si svg{width:100%;height:100%}
+.sh b{font:800 20px "Playfair Display",Georgia,serif;color:#1d1d2b}
+.step p{margin:0;font-size:16px;line-height:1.5}
+@media(max-width:600px){.steps{grid-template-columns:minmax(0,1fr)}}
 .ghosts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px}
 .ghost{border-radius:14px;padding:14px;background:#f5f6fa;border-top:5px solid var(--gc);display:flex;flex-direction:column;gap:6px}
 .ghost b{color:var(--gc);font-size:14px}
@@ -190,7 +198,7 @@ const T=[
 {a:'J',m:5,r:'app',t:'Slovní druhy pod stromečkem',q:'Roztřiď slova z vánoční ukázky podle slovních druhů.'},
 {a:'Z',m:5,r:'app',au:5,u:'materialy/kviz-10.html',bl:'Otevřít kvíz',t:'Žije Scrooge na vysoké noze?',q:'Scrooge by si pro korunu nechal koleno vrtat. Čeština má o penězích spoustu přísloví a rčení. Vyzkoušej si v kvízu, kolik jich znáš.'},
 {a:"L",m:15,r:"pdf",au:5,t:"Scroogeův ledovec",q:"Ostatní lidé vidí Scrooge jako nevrlého lakomce, kterého nemá nikdo rád. Duch minulých Vánoc ale ukázal, že za jeho chováním je víc, než je na první pohled vidět. Je to podobné jako u ledovce: nad hladinou je vidět jen malá část. Co se skrývá pod ní?"},
-{a:"T",m:15,r:"none",au:0,t:"Kdyby duch Vánoc přišel za tebou",q:"Jak by asi vypadal duch Vánoc, kdyby se jednou v noci objevil u tebe? Nakresli ho.\n\nPak napiš krátký příběh o tom, co by se stalo: kam by tě vzal a co by ti ukázal?"},
+{a:"T",m:15,r:"none",au:0,t:"Kdyby duch Vánoc přišel za tebou",q:"Představ si, že se jednou v noci objeví duch Vánoc i u tebe.",steps:[["Nakresli","Jak by asi vypadal tvůj duch Vánoc? Nakresli ho.","pen"],["Napiš","Napiš krátký příběh o tom, co by se stalo: kam by tě vzal a co by ti ukázal?","quill"]]},
 {a:'Z',m:5,r:'app',au:0,u:'https://www.bookwidgets.com/play/ovMtQweU-iQAESjQGGQAAA/EJM8REZ/scrooge-a-koled',t:'Koleda za dveřmi',q:'Na začátku příběhu zazpíval Scroogeovi za dveřmi malý koledník. Scrooge se tak rozzlobil, že ho vyhnal pravítkem! Poslechni si koledu a staň se na chvíli češtinářským detektivem.',bl:'Stát se češtinářským detektivem'},
 {a:"L",m:15,r:"pdf",au:5,t:"Návštěva u Cratchitových",q:"Duch současných Vánoc vezme Scrooge na návštěvu k rodině jeho písaře Boba Cratchita. Poslechněte si ukázku z audioknihy (od 23:33 do 26:36).\n\nDo tabulky v pracovním listu pak zapište větu nebo myšlenku, která vás zaujala, a nakreslete ji. Nakonec vysvětlete, proč je podle vás důležitá a čím vás oslovila.",extra:[["Poslechnout audioknihu", "https://www.youtube.com/watch?v=-OQv3GH1Uss&t=1413s"]]},
 {a:'J',m:5,r:'pdf',t:'Srdce z kamene',q:'Vysvětli význam ustálených spojení, například mít srdce z kamene nebo otočit o sto osmdesát stupňů. Která z nich sedí na Scrooge?'},
@@ -251,10 +259,12 @@ function openTask(d){
   const x=T[d-1],a=AUTHORS[x.au];
   const lnk=(l,u)=>`<a class="btn dark" data-u="${u}" href="${u||'#'}" target="_blank" rel="noopener">${l}</a>`;
   const acts=(x.extra||[]).map(([l,u])=>lnk(l,u).replace('btn dark','btn light')).join('')+(x.r==='pdf'?lnk(x.bl||'Otevřít pracovní list',x.u):x.r==='app'?lnk(x.bl||'Otevřít online aplikaci',x.u):'');
+  const ICON={pen:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4L16 5l3 3L8 19z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 7l3 3" stroke="currentColor" stroke-width="2"/></svg>',quill:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4C12 4 7 9 6 18l-2 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M20 4c0 7-5 11-12 12" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 13h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'};
+  const steps=x.steps?`<div class="steps">${x.steps.map(([h,t,ic],k)=>`<div class="step"><div class="sh"><span class="sn">${k+1}</span><span class="si">${ICON[ic]||''}</span><b>${h}</b></div><p>${t}</p></div>`).join('')}</div>`:'';
   const ghosts=x.ghosts?`<div class="ghosts">${[['Duch minulých Vánoc','Na co z letošního roku rád(a) vzpomínáš?','#8a4a5c'],['Duch současných Vánoc','Co tě dělá šťastným/šťastnou právě teď?','#3d6a8f'],['Duch budoucích Vánoc','Co bys příště udělal(a) jinak?','#4a4858']].map(([h,t,c])=>`<div class="ghost" style="--gc:${c}"><b>${h}</b><span>${t}</span></div>`).join('')}</div>`:'';
   let acro='';if(x.acro){let saved={};try{saved=JSON.parse(localStorage.getItem('koleda26-acro')||'{}')}catch(e){}
     acro=`<div class="acro">${[...x.acro].map((ch,k)=>`<label class="arow"><span class="al">${ch}</span><input data-k="${k}" value="${(saved[k]||'').replace(/"/g,'&quot;')}" placeholder="slovo nebo věta…" aria-label="Písmeno ${ch}"></label>`).join('')}</div><div class="acts"><button class="btn gold" id="acroDone">Hotovo</button></div><div class="acro-msg" id="acroMsg" role="status"></div><div id="acroOut"></div>`}
-  show(`<div class="mhead"><span class="num">${x.d}</span><div><span class="eb">${x.d}. prosince</span><h2 id="mt">${x.t}</h2></div></div>${x.letter?`<div class="letter"><p>${x.letter}</p><p class="sig">Ebenezer Scrooge</p></div>`:''}${x.box?`<div class="ask"><b>A teď ještě něco pro tebe</b><p class="task">${x.q}</p></div>`:`<p class="task">${x.q}</p>`}${ghosts}${acro}${acts?`<div class="acts">${acts}</div>`:''}
+  show(`<div class="mhead"><span class="num">${x.d}</span><div><span class="eb">${x.d}. prosince</span><h2 id="mt">${x.t}</h2></div></div>${x.letter?`<div class="letter"><p>${x.letter}</p><p class="sig">Ebenezer Scrooge</p></div>`:''}${x.box?`<div class="ask"><b>A teď ještě něco pro tebe</b><p class="task">${x.q}</p></div>`:`<p class="task">${x.q}</p>`}${steps}${ghosts}${acro}${acts?`<div class="acts">${acts}</div>`:''}
   <div class="by">Úkol připravila <button class="lnk" data-au="${x.au}">${a.n}</button></div>`,'hh');
   document.querySelectorAll('.acro input').forEach(inp=>inp.addEventListener('input',()=>{const o={};document.querySelectorAll('.acro input').forEach(i=>o[i.dataset.k]=i.value);try{localStorage.setItem('koleda26-acro',JSON.stringify(o))}catch(e){}}));
   if(x.acro)acroSetup(x.acro);
